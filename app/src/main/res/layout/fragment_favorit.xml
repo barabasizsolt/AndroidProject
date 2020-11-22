@@ -3,15 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFCAA5"
-    tools:context=".Fragments.ProfileFragment">
+    tools:context=".Fragments.FavoritFragment"
+    android:background="#FFCAA5">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="PROFILE"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="109dp" />
+        android:text="FAVORITE" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
