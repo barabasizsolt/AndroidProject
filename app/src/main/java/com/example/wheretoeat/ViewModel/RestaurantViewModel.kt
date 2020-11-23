@@ -2,7 +2,6 @@ package com.example.wheretoeat.ViewModel
 
 import androidx.lifecycle.*
 import com.example.wheretoeat.Model.Country
-import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.Model.allRestaurant
 import com.example.wheretoeat.Repository.Repository
 import kotlinx.coroutines.launch
@@ -21,7 +20,7 @@ class RestaurantViewModel(private val repository:Repository):ViewModel() {
 
     fun getCountry(){
         viewModelScope.launch {
-            val response = repository.getCountires()
+            val response = repository.getCountries()
             myResponseCt.value = response
         }
     }

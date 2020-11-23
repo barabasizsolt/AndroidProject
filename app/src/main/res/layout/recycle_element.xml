@@ -11,48 +11,93 @@
         android:layout_height="match_parent"
         android:padding="8dp">
 
+        <ImageView
+            android:id="@+id/foodImage"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/foodimage2">
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/name_ic"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/foodImage"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_restaurant">
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/type_ic"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/restaurantPrice"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_phone">
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/calore_ic"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/restaurantName"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_price">
+        </ImageView>
+
         <TextView
             android:id="@+id/restaurantName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="5dp"
+            android:layout_below="@id/foodImage"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="0dp"
+            android:layout_toRightOf="@id/name_ic"
+            android:paddingTop="2dp"
             android:text="Name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.046"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/restaurantPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/restaurantName"
-            android:layout_alignBottom="@+id/restaurantPhone"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="27dp"
+            android:layout_below="@id/restaurantName"
+            android:layout_marginStart="6dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="3dp"
+            android:layout_toEndOf="@+id/calore_ic"
+            android:layout_toRightOf="@+id/calore_ic"
+            android:paddingTop="2dp"
             android:text="Price"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.043"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/restaurantPhone" />
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/restaurantPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/restaurantName"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="35dp"
+            android:layout_below="@id/restaurantPrice"
+            android:layout_marginStart="6dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/type_ic"
+            android:layout_toRightOf="@+id/type_ic"
+            android:paddingTop="2dp"
             android:text="Phone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/restaurantName" />
-
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

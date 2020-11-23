@@ -36,8 +36,8 @@ class SplashActivity : AppCompatActivity() {
         //Kiveszem a country-on
         viewModel.myResponseCt.observe(this, Observer { response ->
             if (response.isSuccessful) {
-                Log.d("Number", response.body()?.count.toString())
-                Log.d("States", response.body()?.countries.toString())
+                //Log.d("Number", response.body()?.count.toString())
+               // Log.d("States", response.body()?.countries.toString())
 
                 countries = response.body()?.countries!!//country list
 
@@ -51,7 +51,7 @@ class SplashActivity : AppCompatActivity() {
 
                             for(rest in response1.body()?.restaurants!!){
                                 daoViewModel.addRestaurantDB(rest)
-                                //Log.d("\nResponse", rest.toString())
+                                Log.d("\nResponse", rest.toString())
                             }
                         }
                     })
