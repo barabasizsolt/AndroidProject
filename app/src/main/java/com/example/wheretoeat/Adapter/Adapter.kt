@@ -1,22 +1,28 @@
 package com.example.wheretoeat.Adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.wheretoeat.Fragments.DetailsPageFragment
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.R
 import com.example.wheretoeat.ViewModel.DaoViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
-class Adapter(private var daoViewModel: DaoViewModel) : RecyclerView.Adapter<Adapter.FoodViewHolder>(), Filterable {
+
+class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : RecyclerView.Adapter<Adapter.FoodViewHolder>(), Filterable {
     private var exampleList: MutableList<Restaurant> = mutableListOf()
     private var exampleListFull: MutableList<Restaurant> = mutableListOf()
+    private  var context = mContext
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
@@ -33,6 +39,20 @@ class Adapter(private var daoViewModel: DaoViewModel) : RecyclerView.Adapter<Ada
         holder.restNameView.text = currentItem.name
         holder.restPhoneView.text = currentItem.phone
         holder.restPriceView.text = currentItem.price.toString()
+
+        holder.itemView.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("name", currentItem.name)
+            bundle.putString("phone", currentItem.phone)
+            bundle.putString("price", currentItem.price.toString())
+
+            val detailsPageFragment = DetailsPageFragment()
+            detailsPageFragment.arguments = bundle
+
+            val transaction = (context as FragmentActivity).supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.nav_host_fragment, detailsPageFragment)
+            transaction.commit()
+        }
     }
 
     override fun getItemCount() = exampleList.size

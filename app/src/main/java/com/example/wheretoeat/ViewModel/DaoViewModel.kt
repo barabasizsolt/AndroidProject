@@ -1,7 +1,6 @@
 package com.example.wheretoeat.ViewModel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -17,6 +16,7 @@ class DaoViewModel(application: Application): AndroidViewModel(application) {
 
     init {
         val restaurantDao = RestaurantDatabase.getDatabase(application).RestaurantDao()
+
         repository = RestaurantRepository(restaurantDao)
         readAllData = repository.readAllData
     }

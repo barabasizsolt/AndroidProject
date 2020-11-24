@@ -19,19 +19,19 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var daoViewModel: DaoViewModel
+    //private lateinit var daoViewModel: DaoViewModel
     private val mainFragment = MainFragment()
     private val profileFragment = ProfileFragment()
     private val favoriteFragment = FavoritFragment()
 
-    var adapter: Adapter? = null
+    //var adapter: Adapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        daoViewModel = ViewModelProvider(this).get(DaoViewModel::class.java)
-        adapter = Adapter(daoViewModel)
+//        daoViewModel = ViewModelProvider(this).get(DaoViewModel::class.java)
+//        adapter = Adapter(daoViewModel)
 
         bottomNav.setOnNavigationItemSelectedListener {
             var selectedFragment: Fragment = ProfileFragment()

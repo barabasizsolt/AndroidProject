@@ -3,13 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.FavoritFragment"
-    android:background="#FFCAA5">
+    android:background="#FFCAA5"
+    tools:context=".Fragments.MainFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle_view_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:padding="4dp"
+        tools:listitem="@layout/recycle_element" />
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="FAVORITE" />
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
