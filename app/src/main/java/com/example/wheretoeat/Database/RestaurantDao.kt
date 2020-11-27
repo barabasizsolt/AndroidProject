@@ -12,6 +12,9 @@ interface RestaurantDao {
     @Delete
     suspend fun deleteRestaurant(restaurant:Restaurant)
 
+    @Query("DELETE FROM rest_table")
+    suspend fun deleteAll()
+
     @Query("SELECT *FROM rest_table ORDER BY name ASC")
     fun readAllData(): LiveData<List<Restaurant>>
 }

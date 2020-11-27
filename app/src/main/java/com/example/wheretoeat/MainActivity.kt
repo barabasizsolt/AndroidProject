@@ -24,14 +24,9 @@ class MainActivity : AppCompatActivity() {
     private val profileFragment = ProfileFragment()
     private val favoriteFragment = FavoritFragment()
 
-    //var adapter: Adapter? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-//        daoViewModel = ViewModelProvider(this).get(DaoViewModel::class.java)
-//        adapter = Adapter(daoViewModel)
 
         bottomNav.setOnNavigationItemSelectedListener {
             var selectedFragment: Fragment = ProfileFragment()
@@ -46,24 +41,4 @@ class MainActivity : AppCompatActivity() {
             return@setOnNavigationItemSelectedListener true
         }
     }
-
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.menu, menu)
-//        val menuItem = menu?.findItem(R.id.search)
-//        val searchView = menuItem?.actionView as SearchView
-//
-//        searchView.maxWidth = Int.MAX_VALUE
-//
-//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                return false
-//            }
-//
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                adapter?.filter?.filter(newText)
-//                return false
-//            }
-//        })
-//        return true
-//    }
 }

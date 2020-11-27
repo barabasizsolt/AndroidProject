@@ -4,6 +4,7 @@ import com.example.wheretoeat.Model.Country
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.Model.allRestaurant
 import retrofit2.Response
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Query
 

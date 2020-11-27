@@ -14,24 +14,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.wheretoeat.Fragments.DetailsPageFragment
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.R
-import com.example.wheretoeat.Util.DoubleClickListener
 import com.example.wheretoeat.ViewModel.DaoViewModel
 
-
-class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : RecyclerView.Adapter<Adapter.FoodViewHolder>(){
+class FavoriteAdapter (private var daoViewModel: DaoViewModel, mContext: Context) : RecyclerView.Adapter<Adapter.FoodViewHolder>(){
     private var exampleList: MutableList<Restaurant> = mutableListOf()
     private  var context = mContext
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Adapter.FoodViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.recycle_element,
             parent, false
         )
-        return FoodViewHolder(itemView)
+        return Adapter.FoodViewHolder(itemView)
     }
 
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: Adapter.FoodViewHolder, position: Int) {
         val currentItem = exampleList[position]
 
         holder.restNameView.text = currentItem.name
@@ -52,14 +49,27 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
             transaction.commit()
         }
 
-        holder.itemView.setOnClickListener(object : DoubleClickListener() {
-            override fun onDoubleClick(v: View) {
-                daoViewModel.addRestaurantDB(exampleList[position])
-                notifyDataSetChanged()
-                Toast.makeText(holder.itemView.context,"Added to favorites!",Toast.LENGTH_SHORT).show()
-            }
-        })
+        holder.itemView.setOnLongClickListener {
+            val builder = AlertDialog.Builder(holder.itemView.context)
+            builder.setMessage("Are you sure you want to Delete?")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { dialog, id ->
+                    daoViewModel.deleteRestaurantDB(exampleList[position])
+                    exampleList.removeAt(position)
+                    notifyItemRemoved(position)
+                    Toast.makeText(holder.itemView.context, "Item deleted!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                .setNegativeButton("No") { dialog, id ->
+                    dialog.dismiss()
+                }
+            builder.create().show()
+
+            return@setOnLongClickListener true
+        }
     }
+
+
 
     override fun getItemCount() = exampleList.size
 
@@ -73,4 +83,5 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
         this.exampleList = restaurants
         notifyDataSetChanged()
     }
+
 }

@@ -13,4 +13,8 @@ class RestaurantRepository(private val restaurantDao: RestaurantDao) {
     suspend fun deleteRestaurant(restaurant: Restaurant){
         restaurantDao.deleteRestaurant(restaurant)
     }
+
+    suspend fun deleteAll(){
+        restaurantDao.deleteAll()
+    }
 }

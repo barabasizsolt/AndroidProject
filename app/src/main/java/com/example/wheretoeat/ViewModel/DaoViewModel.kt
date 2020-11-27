@@ -32,4 +32,10 @@ class DaoViewModel(application: Application): AndroidViewModel(application) {
             repository.deleteRestaurant(restaurant)
         }
     }
+
+    fun deleteAll(){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteAll()
+        }
+    }
 }
