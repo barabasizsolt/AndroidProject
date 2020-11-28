@@ -8,9 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.example.wheretoeat.R
-import kotlinx.android.synthetic.main.fragment_details_page.*
 
 
 class DetailsPageFragment : Fragment() {
@@ -23,10 +24,11 @@ class DetailsPageFragment : Fragment() {
 
         val name = view.findViewById<TextView>(R.id.detailsName)
         name.text = arguments?.getString("name")
-        val phone = view.findViewById<TextView>(R.id.detailsPhone)
-        phone.text = arguments?.getString("phone")
-        val price = view.findViewById<TextView>(R.id.detailsPrice)
-        price.text = arguments?.getString("price")
+        val city = view.findViewById<TextView>(R.id.detailsCity)
+        city.text = arguments?.getString("city")
+
+        val image = view.findViewById<ImageView>(R.id.imageURL)
+        Glide.with(this).load(arguments?.getString("image")).into(image)
 
         val mapButton = view.findViewById<Button>(R.id.mapButton)
         mapButton.setOnClickListener {
@@ -36,6 +38,24 @@ class DetailsPageFragment : Fragment() {
             val lng = arguments?.getString("lng")
 
             intent.data = Uri.parse("geo:$lat,$lng")
+            startActivity(intent)
+        }
+
+        val callButton = view.findViewById<Button>(R.id.callButton)
+        callButton.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_DIAL
+
+            intent.data = Uri.parse("tel:" + (arguments?.getString("phone")))
+            startActivity(intent)
+        }
+
+        val visitButton = view.findViewById<Button>(R.id.visitButton)
+        visitButton.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_VIEW
+
+            intent.data = Uri.parse(arguments?.getString("home"))
             startActivity(intent)
         }
 

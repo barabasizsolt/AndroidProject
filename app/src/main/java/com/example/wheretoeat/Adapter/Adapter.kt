@@ -42,10 +42,12 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
         holder.itemView.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("name", currentItem.name)
-            bundle.putString("phone", currentItem.phone)
+            bundle.putString("city", currentItem.city)
             bundle.putString("price", currentItem.price.toString())
             bundle.putString("lat", currentItem.lat.toString())
             bundle.putString("lng", currentItem.lng.toString())
+            bundle.putString("image", currentItem.image_url)
+            bundle.putString("home", currentItem.reserve_url)
 
             val detailsPageFragment = DetailsPageFragment()
             detailsPageFragment.arguments = bundle
@@ -54,14 +56,6 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
             transaction.replace(R.id.nav_host_fragment, detailsPageFragment)
             transaction.commit()
         }
-
-//        holder.itemView.setOnClickListener(object : DoubleClickListener() {
-//            override fun onDoubleClick(v: View) {
-//                daoViewModel.addRestaurantDB(exampleList[position])
-//                notifyDataSetChanged()
-//                Toast.makeText(holder.itemView.context,"Added to favorites!",Toast.LENGTH_SHORT).show()
-//            }
-//        })
 
 //        val hearth = holder.itemView.findViewById<ImageView>(R.id.ic_liked)
 //        hearth.setOnClickListener{

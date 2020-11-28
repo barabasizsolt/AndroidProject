@@ -61,8 +61,8 @@ class MainFragment : Fragment() {
 //            spinnerPage.adapter = adapter2
 //        }
 
-        Log.d("States3: ", Constants.cities.toString())
-        Log.d("Pages: ", Constants.pages.toString())
+        //Log.d("States3: ", Constants.cities.toString())
+        //Log.d("Pages: ", Constants.pages.toString())
 
         daoViewModel = ViewModelProvider(this).get(DaoViewModel::class.java)
         adapter = context?.let { Adapter(daoViewModel, it) }

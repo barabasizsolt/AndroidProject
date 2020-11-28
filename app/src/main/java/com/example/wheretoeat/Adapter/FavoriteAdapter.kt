@@ -38,10 +38,12 @@ class FavoriteAdapter (private var daoViewModel: DaoViewModel, mContext: Context
         holder.itemView.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("name", currentItem.name)
-            bundle.putString("phone", currentItem.phone)
+            bundle.putString("city", currentItem.city)
             bundle.putString("price", currentItem.price.toString())
             bundle.putString("lat", currentItem.lat.toString())
             bundle.putString("lng", currentItem.lng.toString())
+            bundle.putString("image", currentItem.image_url)
+            bundle.putString("home", currentItem.reserve_url)
 
             val detailsPageFragment = DetailsPageFragment()
             detailsPageFragment.arguments = bundle
