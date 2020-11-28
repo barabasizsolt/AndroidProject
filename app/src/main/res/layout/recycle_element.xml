@@ -8,6 +8,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:background="#c4c3d0"
         android:layout_height="match_parent"
         android:padding="8dp">
 
@@ -63,12 +64,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/foodImage"
             android:layout_marginLeft="6dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="3dp"
             android:layout_toRightOf="@id/name_ic"
             android:paddingTop="2dp"
             android:text="Name"
             android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/restaurantPrice"
@@ -77,13 +78,13 @@
             android:layout_below="@id/restaurantName"
             android:layout_marginStart="6dp"
             android:layout_marginLeft="6dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="7dp"
             android:layout_toEndOf="@+id/calore_ic"
             android:layout_toRightOf="@+id/calore_ic"
             android:paddingTop="2dp"
             android:text="Price"
             android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/restaurantPhone"
@@ -92,13 +93,14 @@
             android:layout_below="@id/restaurantPrice"
             android:layout_marginStart="6dp"
             android:layout_marginLeft="6dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="2dp"
             android:layout_toEndOf="@+id/type_ic"
             android:layout_toRightOf="@+id/type_ic"
             android:paddingTop="2dp"
             android:text="Phone"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/ic_liked"

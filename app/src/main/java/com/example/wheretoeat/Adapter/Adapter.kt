@@ -36,8 +36,8 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
         val currentItem = exampleList[position]
 
         holder.restNameView.text = currentItem.name
-        holder.restPhoneView.text = currentItem.phone
-        holder.restPriceView.text = currentItem.price.toString()
+        holder.restPhoneView.text = "Tel: " + currentItem.phone
+        holder.restPriceView.text = "Minimum price: " + currentItem.price.toString() +  "$"
 
         holder.itemView.setOnClickListener {
             val bundle = Bundle()

@@ -28,12 +28,13 @@ class FavoriteAdapter (private var daoViewModel: DaoViewModel, mContext: Context
         return Adapter.FoodViewHolder(itemView)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: Adapter.FoodViewHolder, position: Int) {
         val currentItem = exampleList[position]
 
         holder.restNameView.text = currentItem.name
-        holder.restPhoneView.text = currentItem.phone
-        holder.restPriceView.text = currentItem.price.toString()
+        holder.restPhoneView.text = "Tel: " + currentItem.phone
+        holder.restPriceView.text = "Minimum price: " + currentItem.price.toString() +  "$"
 
         holder.itemView.setOnClickListener {
             val bundle = Bundle()
