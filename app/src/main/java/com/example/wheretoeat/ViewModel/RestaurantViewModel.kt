@@ -1,6 +1,7 @@
 package com.example.wheretoeat.ViewModel
 
 import androidx.lifecycle.*
+import com.example.wheretoeat.Model.City
 import com.example.wheretoeat.Model.Country
 import com.example.wheretoeat.Model.allRestaurant
 import com.example.wheretoeat.Repository.Repository
@@ -9,7 +10,8 @@ import retrofit2.Response
 
 class RestaurantViewModel(private val repository:Repository):ViewModel() {
     val myResponseAll:MutableLiveData<Response<allRestaurant>> = MutableLiveData()
-    val myResponseCt:MutableLiveData<Response<Country>> = MutableLiveData()
+    val myResponseCountry:MutableLiveData<Response<Country>> = MutableLiveData()
+    val myResponseCity:MutableLiveData<Response<City>> = MutableLiveData()
 
     fun getAllRestaurant(country:String, page:Int){
         viewModelScope.launch {
@@ -21,7 +23,14 @@ class RestaurantViewModel(private val repository:Repository):ViewModel() {
     fun getCountry(){
         viewModelScope.launch {
             val response = repository.getCountries()
-            myResponseCt.value = response
+            myResponseCountry.value = response
+        }
+    }
+
+    fun getCity(){
+        viewModelScope.launch {
+            val response = repository.getCities()
+            myResponseCity.value = response
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.wheretoeat.Fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.example.wheretoeat.Adapter.Adapter
 import com.example.wheretoeat.Adapter.FavoriteAdapter
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.R
+import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
 import kotlinx.android.synthetic.main.fragment_favorit.view.*
 
@@ -36,6 +38,8 @@ class FavoritFragment : Fragment() {
         daoViewModel.readAllData.observe(viewLifecycleOwner, Observer { restaurant ->
             adapter!!.setData(restaurant as MutableList<Restaurant>)
         })
+
+        Log.d("Pages: ", Constants.pages.toString())
 
 //        daoViewModel.deleteAll()
 //

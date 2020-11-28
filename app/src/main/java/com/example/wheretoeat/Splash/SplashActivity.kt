@@ -4,18 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.WindowManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.wheretoeat.MainActivity
-import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.R
 import com.example.wheretoeat.Repository.Repository
-import com.example.wheretoeat.ViewModel.DaoViewModel
 import com.example.wheretoeat.ViewModel.MainRestaurantViewModelFactory
 import com.example.wheretoeat.ViewModel.RestaurantViewModel
-import com.example.wheretoeat.Util.Constants.Companion.countries
+import com.example.wheretoeat.Util.Constants.Companion.cities
 
 @Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {
@@ -28,10 +25,10 @@ class SplashActivity : AppCompatActivity() {
         val repository = Repository()
         val viewModelFactory = MainRestaurantViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(RestaurantViewModel::class.java)
-        viewModel.getCountry()
-        viewModel.myResponseCt.observe(this, Observer { response ->
+        viewModel.getCity()
+        viewModel.myResponseCity.observe(this, Observer { response ->
             if (response.isSuccessful) {
-                countries = response.body()?.countries!!//country list
+                cities = response.body()?.cities!!
             }
         })
         window.setFlags(

@@ -6,7 +6,6 @@ import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,7 +14,6 @@ import com.example.wheretoeat.Adapter.Adapter
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.R
 import com.example.wheretoeat.Repository.Repository
-import com.example.wheretoeat.Splash.SplashActivity
 import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
 import com.example.wheretoeat.ViewModel.MainRestaurantViewModelFactory
@@ -42,28 +40,29 @@ class MainFragment : Fragment() {
                     ArrayAdapter(
                         it,
                         android.R.layout.simple_spinner_item,
-                        Constants.countries
+                        Constants.cities
                     )
                 }
             spinner.adapter = adapter1
         }
 
-        val numbers = listOf<Int>(1,2,3,4,5,6,7,8,9,10)
+//        val numbers = listOf<Int>(1,2,3,4,5,6,7,8,9,10)
+//
+//        val spinnerPage = view.findViewById<Spinner>(R.id.searchableSpinner)
+//        if (spinnerPage != null) {
+//            val adapter2 =
+//                activity?.let {
+//                    ArrayAdapter(
+//                        it,
+//                        android.R.layout.simple_spinner_item,
+//                        numbers
+//                    )
+//                }
+//            spinnerPage.adapter = adapter2
+//        }
 
-        val spinnerPage = view.findViewById<Spinner>(R.id.spinnerPage)
-        if (spinnerPage != null) {
-            val adapter2 =
-                activity?.let {
-                    ArrayAdapter(
-                        it,
-                        android.R.layout.simple_spinner_item,
-                        numbers
-                    )
-                }
-            spinnerPage.adapter = adapter2
-        }
-
-        Log.d("States3: ", Constants.countries.toString())
+        Log.d("States3: ", Constants.cities.toString())
+        Log.d("Pages: ", Constants.pages.toString())
 
         daoViewModel = ViewModelProvider(this).get(DaoViewModel::class.java)
         adapter = context?.let { Adapter(daoViewModel, it) }
@@ -83,13 +82,13 @@ class MainFragment : Fragment() {
             }
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
-                spinnerPage?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-                    }
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-                    }
-                }
+//                spinnerPage?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+//                    override fun onNothingSelected(parent: AdapterView<*>?) {
+//                    }
+//                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//
+//                    }
+//                }
 
                 viewModel.getAllRestaurant(spinner.selectedItem.toString(), 1)
                 viewModel.myResponseAll.observe(viewLifecycleOwner, Observer { response1 ->

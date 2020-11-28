@@ -40,6 +40,8 @@ class FavoriteAdapter (private var daoViewModel: DaoViewModel, mContext: Context
             bundle.putString("name", currentItem.name)
             bundle.putString("phone", currentItem.phone)
             bundle.putString("price", currentItem.price.toString())
+            bundle.putString("lat", currentItem.lat.toString())
+            bundle.putString("lng", currentItem.lng.toString())
 
             val detailsPageFragment = DetailsPageFragment()
             detailsPageFragment.arguments = bundle
@@ -68,7 +70,6 @@ class FavoriteAdapter (private var daoViewModel: DaoViewModel, mContext: Context
             return@setOnLongClickListener true
         }
     }
-
 
 
     override fun getItemCount() = exampleList.size
