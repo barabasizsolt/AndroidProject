@@ -3,7 +3,7 @@ package com.example.wheretoeat
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.wheretoeat.Fragments.FavoritFragment
+import com.example.wheretoeat.Fragments.FavoriteFragment
 import com.example.wheretoeat.Fragments.MainFragment
 import com.example.wheretoeat.Fragments.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
     //private lateinit var daoViewModel: DaoViewModel
     private val mainFragment = MainFragment()
     private val profileFragment = ProfileFragment()
-    private val favoriteFragment = FavoritFragment()
+    private val favoriteFragment = FavoriteFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

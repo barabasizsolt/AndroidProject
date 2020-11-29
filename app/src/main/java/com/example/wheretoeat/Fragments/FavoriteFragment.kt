@@ -17,7 +17,7 @@ import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
 import kotlinx.android.synthetic.main.fragment_favorit.view.*
 
-class FavoritFragment : Fragment() {
+class FavoriteFragment : Fragment() {
     private lateinit var daoViewModel: DaoViewModel
     var adapter: FavoriteAdapter? = null
 

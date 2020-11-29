@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wheretoeat.Fragments.DetailsPageFragment
@@ -35,16 +37,13 @@ class FavoriteAdapter (private var daoViewModel: DaoViewModel, mContext: Context
         holder.restNameView.text = currentItem.name
         holder.restPhoneView.text = "Tel: " + currentItem.phone
         holder.restPriceView.text = "Minimum price: " + currentItem.price.toString() +  "$"
+        val hearth = holder.itemView.findViewById<ImageView>(R.id.ic_liked)
+        hearth.isVisible = false
 
         holder.itemView.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("name", currentItem.name)
-            bundle.putString("city", currentItem.city)
-            bundle.putString("price", currentItem.price.toString())
-            bundle.putString("lat", currentItem.lat.toString())
-            bundle.putString("lng", currentItem.lng.toString())
-            bundle.putString("image", currentItem.image_url)
-            bundle.putString("home", currentItem.reserve_url)
+            bundle.putParcelable("restaurant", currentItem)
+            bundle.putBoolean("visible", false)
 
             val detailsPageFragment = DetailsPageFragment()
             detailsPageFragment.arguments = bundle

@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.PrimaryKey
 import com.example.wheretoeat.Fragments.DetailsPageFragment
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.R
@@ -41,13 +42,8 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
 
         holder.itemView.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("name", currentItem.name)
-            bundle.putString("city", currentItem.city)
-            bundle.putString("price", currentItem.price.toString())
-            bundle.putString("lat", currentItem.lat.toString())
-            bundle.putString("lng", currentItem.lng.toString())
-            bundle.putString("image", currentItem.image_url)
-            bundle.putString("home", currentItem.reserve_url)
+            bundle.putParcelable("restaurant", currentItem)
+            bundle.putBoolean("visible", true)
 
             val detailsPageFragment = DetailsPageFragment()
             detailsPageFragment.arguments = bundle
@@ -57,21 +53,12 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
             transaction.commit()
         }
 
-//        val hearth = holder.itemView.findViewById<ImageView>(R.id.ic_liked)
-//        hearth.setOnClickListener{
-//            hearth.setColorFilter(Color.RED)
-//            notifyItemChanged(position)
-//            Toast.makeText(holder.itemView.context, "Item added to favorites!", Toast.LENGTH_SHORT)
-//                .show()
-//        }
-
-        holder.itemView.setOnLongClickListener {
+        val hearth = holder.itemView.findViewById<ImageView>(R.id.ic_liked)
+        hearth.setOnClickListener{
             val builder = AlertDialog.Builder(holder.itemView.context)
             builder.setMessage("Are you sure you want to add to Favorites?")
                 .setCancelable(false)
                 .setPositiveButton("Yes") { dialog, id ->
-                    it.findViewById<ImageView>(R.id.ic_liked).setColorFilter(Color.RED)
-                    notifyItemChanged(position)
                     daoViewModel.addRestaurantDB(currentItem)
                     notifyDataSetChanged()
                     Toast.makeText(holder.itemView.context, "Item added to favorites!", Toast.LENGTH_SHORT)
@@ -81,9 +68,25 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
                     dialog.dismiss()
                 }
             builder.create().show()
-
-            return@setOnLongClickListener true
         }
+
+//        holder.itemView.setOnLongClickListener {
+//            val builder = AlertDialog.Builder(holder.itemView.context)
+//            builder.setMessage("Are you sure you want to add to Favorites?")
+//                .setCancelable(false)
+//                .setPositiveButton("Yes") { dialog, id ->
+//                    daoViewModel.addRestaurantDB(currentItem)
+//                    notifyDataSetChanged()
+//                    Toast.makeText(holder.itemView.context, "Item added to favorites!", Toast.LENGTH_SHORT)
+//                        .show()
+//                }
+//                .setNegativeButton("No") { dialog, id ->
+//                    dialog.dismiss()
+//                }
+//            builder.create().show()
+//
+//            return@setOnLongClickListener true
+//        }
 
     }
 

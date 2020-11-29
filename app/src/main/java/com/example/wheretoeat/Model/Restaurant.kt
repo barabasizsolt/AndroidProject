@@ -1,9 +1,13 @@
 package com.example.wheretoeat.Model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
+import kotlinx.serialization.Serializable
 
 @Entity(tableName = "rest_table")
+@Parcelize
 data class Restaurant(
     @PrimaryKey var id: Int,
     val name: String,
@@ -20,7 +24,7 @@ data class Restaurant(
     val reserve_url: String,
     val mobile_reserve_url: String,
     val image_url: String
-)
+) : Parcelable
 
 
 
