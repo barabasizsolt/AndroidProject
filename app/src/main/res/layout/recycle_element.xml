@@ -16,7 +16,7 @@
             android:id="@+id/foodImage"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:src="@drawable/foodimage2">
+            android:src="@drawable/foodimage6">
         </ImageView>
 
         <ImageView

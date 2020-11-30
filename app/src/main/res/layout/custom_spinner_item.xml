@@ -3,6 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#450045"
     android:padding="1dp">
 
     <ImageView android:layout_width="40dp"
@@ -14,7 +15,7 @@
     <TextView android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-        android:textColor="#c4c3d0"
+        android:textColor="#FFEDCC"
         android:paddingStart="10dp"
         android:layout_gravity="center_vertical"
         android:id="@+id/text"/>

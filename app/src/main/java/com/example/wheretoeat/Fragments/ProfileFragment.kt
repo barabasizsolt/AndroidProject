@@ -24,8 +24,8 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        val myImageList = intArrayOf(R.drawable.avatar1, R.drawable.avatar2,
-            R.drawable.avatar3, R.drawable.avatar4)
+        val myImageList = intArrayOf(R.drawable.avatar11, R.drawable.avatar22,
+            R.drawable.avatar33, R.drawable.avatar44)
 
         val profileLogo = view.findViewById<ImageView>(R.id.userLogo)
 

@@ -1,18 +1,18 @@
 [
   {
-    "name": "Cat",
-    "url": "avatar1"
+    "name": "Kitty",
+    "url": "avatar11"
   },
   {
-    "name": "Dog",
-    "url": "avatar2"
+    "name": "Puppy",
+    "url": "avatar22"
   },
   {
     "name": "Penguin",
-    "url": "avatar3"
+    "url": "avatar33"
   },
   {
     "name": "Panda",
-    "url": "avatar4"
+    "url": "avatar44"
   }
 ]

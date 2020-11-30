@@ -40,6 +40,10 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
         holder.restNameView.text = currentItem.name
         holder.restPhoneView.text = "Tel: " + currentItem.phone
         holder.restPriceView.text = "Minimum price: " + currentItem.price.toString() +  "$"
+        when{
+            position % 2 == 0 -> holder.restImageView.setImageResource(R.drawable.foodimage5)
+            position % 3 == 0 -> holder.restImageView.setImageResource(R.drawable.foodimage4)
+        }
 
         holder.itemView.setOnClickListener {
             val bundle = Bundle()
@@ -101,6 +105,7 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
         val restNameView: TextView = itemView.findViewById(R.id.restaurantName)
         val restPhoneView: TextView = itemView.findViewById(R.id.restaurantPhone)
         val restPriceView: TextView = itemView.findViewById(R.id.restaurantPrice)
+        val restImageView: ImageView = itemView.findViewById(R.id.foodImage)
     }
 
     fun setData(restaurants: MutableList<Restaurant>){
