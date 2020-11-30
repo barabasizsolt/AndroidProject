@@ -3,26 +3,27 @@ package com.example.wheretoeat.Adapter
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.PrimaryKey
 import com.example.wheretoeat.Fragments.DetailsPageFragment
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.R
 import com.example.wheretoeat.ViewModel.DaoViewModel
+import java.util.*
 
 
 class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : RecyclerView.Adapter<Adapter.FoodViewHolder>(){
     private var exampleList: MutableList<Restaurant> = mutableListOf()
-    private  var context = mContext
+    private var exampleListAll: MutableList<Restaurant> = mutableListOf()
+    private var context = mContext
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
@@ -61,7 +62,11 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
                 .setPositiveButton("Yes") { dialog, id ->
                     daoViewModel.addRestaurantDB(currentItem)
                     notifyDataSetChanged()
-                    Toast.makeText(holder.itemView.context, "Item added to favorites!", Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        holder.itemView.context,
+                        "Item added to favorites!",
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                 }
                 .setNegativeButton("No") { dialog, id ->
@@ -90,7 +95,7 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
 
     }
 
-    override fun getItemCount() = exampleList.size
+    override fun getItemCount() = exampleListAll.size
 
     class FoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val restNameView: TextView = itemView.findViewById(R.id.restaurantName)
@@ -100,6 +105,33 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
 
     fun setData(restaurants: MutableList<Restaurant>){
         this.exampleList = restaurants
+        this.exampleListAll = restaurants
         notifyDataSetChanged()
+    }
+
+    fun getFilter():Filter{
+        return object : Filter(){
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val key = constraint.toString()
+
+                exampleListAll = if(key.isEmpty()){
+                    exampleList
+                } else{
+                    exampleList.filter {
+                        it.name.toLowerCase(Locale.ROOT).contains(key.toLowerCase(Locale.ROOT))
+                    } as MutableList<Restaurant>
+                }
+
+                val result = FilterResults()
+                result.values = exampleListAll
+                return result
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                exampleListAll = results?.values as MutableList<Restaurant>
+                notifyDataSetChanged()
+            }
+
+        }
     }
 }

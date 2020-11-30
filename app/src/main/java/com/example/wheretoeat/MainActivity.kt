@@ -3,10 +3,14 @@ package com.example.wheretoeat
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.wheretoeat.Adapter.CustomDropDownAdapter
 import com.example.wheretoeat.Fragments.FavoriteFragment
 import com.example.wheretoeat.Fragments.MainFragment
 import com.example.wheretoeat.Fragments.ProfileFragment
+import com.example.wheretoeat.Model.Logo
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 class MainActivity : AppCompatActivity() {
     //private lateinit var daoViewModel: DaoViewModel
@@ -35,4 +39,6 @@ class MainActivity : AppCompatActivity() {
             return@setOnNavigationItemSelectedListener true
         }
     }
+
+
 }

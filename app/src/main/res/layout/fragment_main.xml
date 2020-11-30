@@ -11,7 +11,7 @@
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="124dp"
         android:clipToPadding="false"
         android:padding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,23 +24,45 @@
         android:id="@+id/spinner"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:background="#c4c3d0"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/search_bg"
+        android:backgroundTint="@color/material_on_primary_emphasis_high_type"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/searchLogo"
+
+    <EditText
+        android:id="@+id/search_bar"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/ic_action_search"
+        android:layout_marginTop="84dp"
+        android:background="@drawable/search_bg"
+        android:backgroundTint="@color/material_on_primary_emphasis_high_type"
+        android:drawableStart="@drawable/ic_search"
+        android:ems="10"
+        android:hint="Search by name.."
+        android:inputType="textPersonName"
+        android:padding="3dp"
+        android:paddingStart="1dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="#c4c3d0" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+        android:id="@+id/spinnerPage"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:background="@drawable/search_bg"
+        android:backgroundTint="@color/material_on_primary_emphasis_high_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

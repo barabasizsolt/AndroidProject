@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Cat",
+    "url": "avatar1"
+  },
+  {
+    "name": "Dog",
+    "url": "avatar2"
+  },
+  {
+    "name": "Penguin",
+    "url": "avatar3"
+  },
+  {
+    "name": "Panda",
+    "url": "avatar4"
+  }
+]
