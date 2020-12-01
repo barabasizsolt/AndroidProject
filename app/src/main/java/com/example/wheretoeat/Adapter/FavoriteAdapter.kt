@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,23 +16,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.wheretoeat.Fragments.DetailsPageFragment
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.R
-import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
 
-class FavoriteAdapter (private var daoViewModel: DaoViewModel, mContext: Context) : RecyclerView.Adapter<Adapter.FoodViewHolder>(){
+class FavoriteAdapter (private var daoViewModel: DaoViewModel, mContext: Context) : RecyclerView.Adapter<Adapter.ViewHolder>(){
     private var exampleList: MutableList<Restaurant> = mutableListOf()
     private  var context = mContext
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Adapter.FoodViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Adapter.ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.recycle_element,
             parent, false
         )
-        return Adapter.FoodViewHolder(itemView)
+        return Adapter.ViewHolder(itemView)
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: Adapter.FoodViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: Adapter.ViewHolder, position: Int) {
         val currentItem = exampleList[position]
 
         holder.restNameView.text = currentItem.name
@@ -86,11 +84,11 @@ class FavoriteAdapter (private var daoViewModel: DaoViewModel, mContext: Context
 
     override fun getItemCount() = exampleList.size
 
-    class FoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val restNameView: TextView = itemView.findViewById(R.id.restaurantName)
-        val restPhoneView: TextView = itemView.findViewById(R.id.restaurantPhone)
-        val restPriceView: TextView = itemView.findViewById(R.id.restaurantPrice)
-    }
+//    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+//        val restNameView: TextView = itemView.findViewById(R.id.restaurantName)
+//        val restPhoneView: TextView = itemView.findViewById(R.id.restaurantPhone)
+//        val restPriceView: TextView = itemView.findViewById(R.id.restaurantPrice)
+//    }
 
     fun setData(restaurants: MutableList<Restaurant>){
         this.exampleList = restaurants

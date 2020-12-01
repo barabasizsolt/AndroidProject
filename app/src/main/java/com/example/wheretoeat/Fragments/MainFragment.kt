@@ -24,6 +24,8 @@ import com.example.wheretoeat.ViewModel.DaoViewModel
 import com.example.wheretoeat.ViewModel.MainRestaurantViewModelFactory
 import com.example.wheretoeat.ViewModel.RestaurantViewModel
 import kotlinx.android.synthetic.main.fragment_main.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.ceil
 
 
@@ -40,22 +42,6 @@ class MainFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_main, container, false)
-
-        val search = view.findViewById<TextView>(R.id.search_bar)
-        search.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                adapter?.getFilter()?.filter(s)
-                if (s != null) {
-                    mySearch = s
-                }
-            }
-        })
 
         val spinner = view.findViewById<Spinner>(R.id.spinner)
         if (spinner != null) {
@@ -122,6 +108,27 @@ class MainFragment : Fragment() {
                 }
                 Log.d("L size: ", L.size.toString())
                 adapter?.setData(L)
+            }
+        })
+
+        val search = view.findViewById<TextView>(R.id.search_bar)
+        search.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val filteredList = mutableListOf<Restaurant>()
+                if(s.toString().isNotEmpty()){
+                    adapter?.setData(L.filter {
+                        it.name.toLowerCase(Locale.ROOT).contains(s.toString().toLowerCase(Locale.ROOT))
+                    } as MutableList<Restaurant>)
+                }
+                else{
+                    adapter?.setData(L)
+                }
             }
         })
 

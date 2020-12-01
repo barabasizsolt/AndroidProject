@@ -16,26 +16,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.wheretoeat.Fragments.DetailsPageFragment
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.R
-import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
 import java.util.*
 
 
-class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : RecyclerView.Adapter<Adapter.FoodViewHolder>(){
+class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : RecyclerView.Adapter<Adapter.ViewHolder>(){
     private var exampleList: MutableList<Restaurant> = mutableListOf()
-    private var exampleListAll: MutableList<Restaurant> = mutableListOf()
     private var context = mContext
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.recycle_element,
             parent, false
         )
-        return FoodViewHolder(itemView)
+        return ViewHolder(itemView)
     }
 
     @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
-    override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = exampleList[position]
 
         holder.restNameView.text = currentItem.name
@@ -82,30 +80,11 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
                 }
             builder.create().show()
         }
-
-//        holder.itemView.setOnLongClickListener {
-//            val builder = AlertDialog.Builder(holder.itemView.context)
-//            builder.setMessage("Are you sure you want to add to Favorites?")
-//                .setCancelable(false)
-//                .setPositiveButton("Yes") { dialog, id ->
-//                    daoViewModel.addRestaurantDB(currentItem)
-//                    notifyDataSetChanged()
-//                    Toast.makeText(holder.itemView.context, "Item added to favorites!", Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//                .setNegativeButton("No") { dialog, id ->
-//                    dialog.dismiss()
-//                }
-//            builder.create().show()
-//
-//            return@setOnLongClickListener true
-//        }
-
     }
 
-    override fun getItemCount() = exampleListAll.size
+    override fun getItemCount() = exampleList.size
 
-    class FoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val restNameView: TextView = itemView.findViewById(R.id.restaurantName)
         val restPhoneView: TextView = itemView.findViewById(R.id.restaurantPhone)
         val restPriceView: TextView = itemView.findViewById(R.id.restaurantPrice)
@@ -114,33 +93,6 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
 
     fun setData(restaurants: MutableList<Restaurant>){
         this.exampleList = restaurants
-        this.exampleListAll = restaurants
         notifyDataSetChanged()
-    }
-
-    fun getFilter():Filter{
-        return object : Filter(){
-            override fun performFiltering(constraint: CharSequence?): FilterResults {
-                val key = constraint.toString()
-
-                exampleListAll = if(key.isEmpty()){
-                    exampleList
-                } else{
-                    exampleList.filter {
-                        it.name.toLowerCase(Locale.ROOT).contains(key.toLowerCase(Locale.ROOT))
-                    } as MutableList<Restaurant>
-                }
-
-                val result = FilterResults()
-                result.values = exampleListAll
-                return result
-            }
-
-            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                exampleListAll = results?.values as MutableList<Restaurant>
-                notifyDataSetChanged()
-            }
-
-        }
     }
 }
