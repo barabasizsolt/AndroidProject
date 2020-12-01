@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.wheretoeat.Fragments.DetailsPageFragment
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.R
+import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
 import java.util.*
 
@@ -41,8 +42,12 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
         holder.restPhoneView.text = "Tel: " + currentItem.phone
         holder.restPriceView.text = "Minimum price: " + currentItem.price.toString() +  "$"
         when{
-            position % 2 == 0 -> holder.restImageView.setImageResource(R.drawable.foodimage5)
-            position % 3 == 0 -> holder.restImageView.setImageResource(R.drawable.foodimage4)
+            currentItem.id % 2 == 0 -> {
+                holder.restImageView.setImageResource(R.drawable.foodimage5)
+            }
+            currentItem.id % 3 == 0 -> {
+                holder.restImageView.setImageResource(R.drawable.foodimage4)
+            }
         }
 
         holder.itemView.setOnClickListener {
@@ -70,8 +75,7 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
                         holder.itemView.context,
                         "Item added to favorites!",
                         Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    ).show()
                 }
                 .setNegativeButton("No") { dialog, id ->
                     dialog.dismiss()
@@ -105,7 +109,7 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
         val restNameView: TextView = itemView.findViewById(R.id.restaurantName)
         val restPhoneView: TextView = itemView.findViewById(R.id.restaurantPhone)
         val restPriceView: TextView = itemView.findViewById(R.id.restaurantPrice)
-        val restImageView: ImageView = itemView.findViewById(R.id.foodImage)
+        var restImageView: ImageView = itemView.findViewById(R.id.foodImage)
     }
 
     fun setData(restaurants: MutableList<Restaurant>){

@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.wheretoeat.Adapter.CustomDropDownAdapter
 import com.example.wheretoeat.Model.Logo
 import com.example.wheretoeat.R
+import com.example.wheretoeat.Util.Constants
 import com.google.gson.Gson
 
 
@@ -23,9 +24,6 @@ class ProfileFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
-
-        val myImageList = intArrayOf(R.drawable.avatar11, R.drawable.avatar22,
-            R.drawable.avatar33, R.drawable.avatar44)
 
         val profileLogo = view.findViewById<ImageView>(R.id.userLogo)
 
@@ -47,7 +45,7 @@ class ProfileFragment : Fragment() {
                 position: Int,
                 id: Long
             ){
-                context?.let { Glide.with(it).load(myImageList[spinnerLogo.selectedItemPosition]).
+                context?.let { Glide.with(it).load(Constants.myImageList[spinnerLogo.selectedItemPosition]).
                 circleCrop().into(profileLogo)
                 }
 

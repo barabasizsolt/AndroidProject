@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.wheretoeat.Fragments.DetailsPageFragment
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.R
+import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
 
 class FavoriteAdapter (private var daoViewModel: DaoViewModel, mContext: Context) : RecyclerView.Adapter<Adapter.FoodViewHolder>(){
@@ -37,6 +39,14 @@ class FavoriteAdapter (private var daoViewModel: DaoViewModel, mContext: Context
         holder.restNameView.text = currentItem.name
         holder.restPhoneView.text = "Tel: " + currentItem.phone
         holder.restPriceView.text = "Minimum price: " + currentItem.price.toString() +  "$"
+        when{
+            currentItem.id % 2 == 0 -> {
+                holder.restImageView.setImageResource(R.drawable.foodimage5)
+            }
+            currentItem.id % 3 == 0 -> {
+                holder.restImageView.setImageResource(R.drawable.foodimage4)
+            }
+        }
         val hearth = holder.itemView.findViewById<ImageView>(R.id.ic_liked)
         hearth.isVisible = false
 

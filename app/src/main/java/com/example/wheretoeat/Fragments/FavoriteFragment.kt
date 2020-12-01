@@ -41,7 +41,7 @@ class FavoriteFragment : Fragment() {
 
         Log.d("Pages: ", Constants.pages.toString())
 
-//        daoViewModel.deleteAll()
+        //daoViewModel.deleteAll()
 
         return view
     }

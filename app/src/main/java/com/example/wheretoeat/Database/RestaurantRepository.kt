@@ -10,11 +10,23 @@ class RestaurantRepository(private val restaurantDao: RestaurantDao) {
         restaurantDao.addRestaurantDao(restaurant)
     }
 
+//    suspend fun addImage(images: Images){
+//        restaurantDao.addImagesDao(images)
+//    }
+
     suspend fun deleteRestaurant(restaurant: Restaurant){
         restaurantDao.deleteRestaurant(restaurant)
     }
 
+//    suspend fun deleteImage(images: Images){
+//        restaurantDao.deleteImage(images)
+//    }
+
     suspend fun deleteAll(){
         restaurantDao.deleteAll()
     }
+
+//    suspend fun readJoined(){
+//        restaurantDao.getRestaurantAndImage()
+//    }
 }
