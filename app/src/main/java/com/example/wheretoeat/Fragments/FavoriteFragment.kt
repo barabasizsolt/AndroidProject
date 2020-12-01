@@ -42,12 +42,6 @@ class FavoriteFragment : Fragment() {
         Log.d("Pages: ", Constants.pages.toString())
 
 //        daoViewModel.deleteAll()
-//
-//        val rs = Restaurant(11, "x", "x", "x", "x",
-//        "x", "x", "x", "x", 2.5, 2.5,
-//        4, "x", "x", "x")
-//
-//        daoViewModel.addRestaurantDB(rs)
 
         return view
     }
