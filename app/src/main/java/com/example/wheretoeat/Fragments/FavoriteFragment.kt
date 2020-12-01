@@ -1,11 +1,14 @@
 package com.example.wheretoeat.Fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,9 +42,22 @@ class FavoriteFragment : Fragment() {
             adapter!!.setData(restaurant as MutableList<Restaurant>)
         })
 
-        Log.d("Pages: ", Constants.pages.toString())
+        //Log.d("Pages: ", Constants.pages.toString())
 
-        //daoViewModel.deleteAll()
+        val delete = view.findViewById<ImageView>(R.id.allDelete)
+        delete.setOnClickListener {
+            val builder = AlertDialog.Builder(context)
+            builder.setMessage("Are you sure you want to Delete Everything?")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { dialog, id ->
+                    daoViewModel.deleteAll()
+                    Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
+                }
+                .setNegativeButton("No") { dialog, id ->
+                    dialog.dismiss()
+                }
+            builder.create().show()
+        }
 
         return view
     }
