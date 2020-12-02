@@ -3,42 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/profileFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/favoritFragment"
         android:name="com.example.wheretoeat.Fragments.FavoriteFragment"
         android:label="fragment_favorit"
-        tools:layout="@layout/fragment_favorit" >
-        <action
-            android:id="@+id/action_favoritFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-        <action
-            android:id="@+id/action_favoritFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_favorit" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.wheretoeat.Fragments.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profileFragment_to_favoritFragment"
-            app:destination="@id/favoritFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.wheretoeat.Fragments.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.wheretoeat.Fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_mainFragment_to_favoritFragment"
-            app:destination="@id/favoritFragment" />
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.wheretoeat.Fragments.RegisterFragment"
+        android:label="RegisterFragment" >
         <action
-            android:id="@+id/action_mainFragment_to_profileFragment"
+            android:id="@+id/action_registerFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
 </navigation>

@@ -7,12 +7,15 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.wheretoeat.Adapter.CustomDropDownAdapter
 import com.example.wheretoeat.Model.Logo
 import com.example.wheretoeat.R
 import com.example.wheretoeat.Util.Constants
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 
 
@@ -24,6 +27,19 @@ class ProfileFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        val navBar: BottomNavigationView = requireActivity().findViewById(R.id.bottomNav)
+        navBar.isVisible = true
+
+        val profileName = view.findViewById<TextView>(R.id.profileName)
+        val profileAddress = view.findViewById<TextView>(R.id.address)
+        val profileEmail = view.findViewById<TextView>(R.id.email)
+        val profilePhone = view.findViewById<TextView>(R.id.mobile)
+
+        profileName.text = arguments?.getString("nickname")
+        profileAddress.text = arguments?.getString("address")
+        profileEmail.text = arguments?.getString("email")
+        profilePhone.text = arguments?.getString("phone")
 
         val profileLogo = view.findViewById<ImageView>(R.id.userLogo)
 
@@ -48,7 +64,6 @@ class ProfileFragment : Fragment() {
                 context?.let { Glide.with(it).load(Constants.myImageList[spinnerLogo.selectedItemPosition]).
                 circleCrop().into(profileLogo)
                 }
-
             }
         }
 
@@ -58,9 +73,7 @@ class ProfileFragment : Fragment() {
     private fun readFromAsset(): List<Logo> {
         val fileName = "logos.json"
         val bufferReader = activity?.assets?.open(fileName)?.bufferedReader()
-        val jsonString = bufferReader.use {
-            it?.readText()
-        }
+        val jsonString = bufferReader.use { it?.readText() }
         val gson = Gson()
         return gson.fromJson(jsonString, Array<Logo>::class.java).toList()
     }

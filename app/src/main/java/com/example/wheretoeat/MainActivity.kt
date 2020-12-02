@@ -2,9 +2,12 @@ package com.example.wheretoeat
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.example.wheretoeat.Adapter.CustomDropDownAdapter
 import com.example.wheretoeat.Fragments.FavoriteFragment
+import com.example.wheretoeat.Fragments.LoginFragment
 import com.example.wheretoeat.Fragments.MainFragment
 import com.example.wheretoeat.Fragments.ProfileFragment
 import com.example.wheretoeat.Model.Logo
@@ -26,19 +29,20 @@ class MainActivity : AppCompatActivity() {
         }
         setContentView(R.layout.activity_main)
 
+        bottomNav.isVisible = false
+
         bottomNav.setOnNavigationItemSelectedListener {
-            var selectedFragment: Fragment = ProfileFragment()
+            var selectedFragment: Fragment = LoginFragment()
             when (it.itemId) {
                 R.id.restaurant_main -> selectedFragment = mainFragment
                 R.id.restaurant_profile -> selectedFragment = profileFragment
                 R.id.restaurant_favorite -> selectedFragment = favoriteFragment
             }
+
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.nav_host_fragment, selectedFragment)
             transaction.commit()
             return@setOnNavigationItemSelectedListener true
         }
     }
-
-
 }
