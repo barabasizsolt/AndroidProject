@@ -69,11 +69,7 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
                 .setPositiveButton("Yes") { dialog, id ->
                     daoViewModel.addRestaurantDB(currentItem)
                     notifyDataSetChanged()
-                    Toast.makeText(
-                        holder.itemView.context,
-                        "Item added to favorites!",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(holder.itemView.context, "Item added to favorites!", Toast.LENGTH_SHORT).show()
                 }
                 .setNegativeButton("No") { dialog, id ->
                     dialog.dismiss()

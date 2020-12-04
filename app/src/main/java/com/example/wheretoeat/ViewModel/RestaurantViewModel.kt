@@ -3,13 +3,13 @@ package com.example.wheretoeat.ViewModel
 import androidx.lifecycle.*
 import com.example.wheretoeat.Model.City
 import com.example.wheretoeat.Model.Country
-import com.example.wheretoeat.Model.allRestaurant
+import com.example.wheretoeat.Model.AllRestaurant
 import com.example.wheretoeat.Repository.Repository
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class RestaurantViewModel(private val repository:Repository):ViewModel() {
-    val myResponseAll:MutableLiveData<Response<allRestaurant>> = MutableLiveData()
+    val myResponseAll:MutableLiveData<Response<AllRestaurant>> = MutableLiveData()
     val myResponseCountry:MutableLiveData<Response<Country>> = MutableLiveData()
     val myResponseCity:MutableLiveData<Response<City>> = MutableLiveData()
 

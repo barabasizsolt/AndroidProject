@@ -1,6 +1,6 @@
 package com.example.wheretoeat.Model
 
-data class allRestaurant(
+data class AllRestaurant(
     val total_entries:Int,
     val per_page:Int,
     val current_page:Int,

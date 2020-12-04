@@ -6,12 +6,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,11 +21,9 @@ import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
 import com.example.wheretoeat.ViewModel.MainRestaurantViewModelFactory
 import com.example.wheretoeat.ViewModel.RestaurantViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.ceil
 
 
 class MainFragment : Fragment() {
@@ -44,6 +39,8 @@ class MainFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_main, container, false)
+
+        val search = view.findViewById<TextView>(R.id.search_bar)
 
         val spinner = view.findViewById<Spinner>(R.id.spinner)
         if (spinner != null) {
@@ -85,6 +82,7 @@ class MainFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long ){
                 viewModel.getAllRestaurant(spinner.selectedItem.toString(),  spinnerPage.selectedItem as Int)
                 Log.d("rest", viewModel.myResponseAll.value.toString())
+                search.text = ""
 
                 spinnerPage?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -92,6 +90,7 @@ class MainFragment : Fragment() {
                     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long ){
                         viewModel.getAllRestaurant(spinner.selectedItem.toString(),  spinnerPage.selectedItem as Int)
                         Log.d("rest", viewModel.myResponseAll.value.toString())
+                        search.text = ""
                     }
                 }
             }
@@ -104,16 +103,17 @@ class MainFragment : Fragment() {
 
                 if (response.body()?.restaurants!!.isNotEmpty()) {
                     L = response.body()?.restaurants!!
+                    adapter?.setData(L)
                 }
                 else{
                     Toast.makeText(context, "Not existing page!", Toast.LENGTH_SHORT).show()
+                    adapter?.setData( mutableListOf())
                 }
                 Log.d("L size: ", L.size.toString())
-                adapter?.setData(L)
+
             }
         })
 
-        val search = view.findViewById<TextView>(R.id.search_bar)
         search.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }

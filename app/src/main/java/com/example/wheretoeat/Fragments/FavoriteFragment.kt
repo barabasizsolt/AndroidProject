@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wheretoeat.Adapter.Adapter
 import com.example.wheretoeat.Adapter.FavoriteAdapter
 import com.example.wheretoeat.Model.Restaurant
+import com.example.wheretoeat.Model.User
 import com.example.wheretoeat.R
 import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
@@ -58,6 +59,9 @@ class FavoriteFragment : Fragment() {
                 }
             builder.create().show()
         }
+
+//        val user = User(1, "xx", "xx", "xx", "xx", "xx")
+//        daoViewModel.addUserDB(user)
 
         return view
     }

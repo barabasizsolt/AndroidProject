@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
 import com.example.wheretoeat.Adapter.CustomDropDownAdapter
 import com.example.wheretoeat.Model.Logo
@@ -65,6 +63,13 @@ class ProfileFragment : Fragment() {
                 circleCrop().into(profileLogo)
                 }
             }
+        }
+
+        val logOut = view.findViewById<Button>(R.id.logOut)
+        logOut.setOnClickListener {
+            val transaction = (context as FragmentActivity).supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.nav_host_fragment, LoginFragment())
+            transaction.commit()
         }
 
         return view

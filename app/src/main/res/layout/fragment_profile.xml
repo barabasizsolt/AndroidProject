@@ -117,7 +117,7 @@
         android:id="@+id/resetPassword"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/search_bg"
         android:text="Reset Password"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -126,5 +126,19 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mobile" />
+
+    <Button
+        android:id="@+id/logOut"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/search_bg"
+        android:text="LOG OUT"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resetPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
