@@ -18,8 +18,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.wheretoeat.Model.Restaurant
+import com.example.wheretoeat.Model.UserRestaurantCross
 import com.example.wheretoeat.R
+import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
+import kotlinx.coroutines.runBlocking
 
 
 class DetailsPageFragment : Fragment() {
@@ -58,7 +61,11 @@ class DetailsPageFragment : Fragment() {
                 .setCancelable(false)
                 .setPositiveButton("Yes") { dialog, id ->
                     daoViewModel.addRestaurantDB(restaurant)
-                    //notifyDataSetChanged()
+                    daoViewModel.addUserRestaurantDB(UserRestaurantCross(Constants.commonCrossID++, restaurant.id, Constants.user.userID))
+
+//                    runBlocking { daoViewModel.addRestaurantDB(restaurant)}
+//                    runBlocking { daoViewModel.addUserRestaurantDB(UserRestaurantCross(Constants.commonCrossID++, restaurant.id, Constants.user.userID))}
+
                     Toast.makeText(context, "Item added to favorites!", Toast.LENGTH_SHORT)
                         .show()
                 }

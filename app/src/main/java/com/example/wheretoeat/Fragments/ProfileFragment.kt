@@ -1,6 +1,7 @@
 package com.example.wheretoeat.Fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +12,12 @@ import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
 import com.example.wheretoeat.Adapter.CustomDropDownAdapter
 import com.example.wheretoeat.Model.Logo
+import com.example.wheretoeat.Model.User
 import com.example.wheretoeat.R
 import com.example.wheretoeat.Util.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
+import kotlin.random.Random
 
 
 class ProfileFragment : Fragment() {
@@ -34,10 +37,14 @@ class ProfileFragment : Fragment() {
         val profileEmail = view.findViewById<TextView>(R.id.email)
         val profilePhone = view.findViewById<TextView>(R.id.mobile)
 
-        profileName.text = arguments?.getString("nickname")
-        profileAddress.text = arguments?.getString("address")
-        profileEmail.text = arguments?.getString("email")
-        profilePhone.text = arguments?.getString("phone")
+        val user = Constants.user
+
+        profileName.text = user.nickname
+        profileAddress.text = user.address
+        profileEmail.text = user.email
+        profilePhone.text = user.mobile
+
+        Log.d("USER", user.toString())
 
         val profileLogo = view.findViewById<ImageView>(R.id.userLogo)
 
@@ -67,6 +74,7 @@ class ProfileFragment : Fragment() {
 
         val logOut = view.findViewById<Button>(R.id.logOut)
         logOut.setOnClickListener {
+            navBar.isVisible = false
             val transaction = (context as FragmentActivity).supportFragmentManager.beginTransaction()
             transaction.replace(R.id.nav_host_fragment, LoginFragment())
             transaction.commit()

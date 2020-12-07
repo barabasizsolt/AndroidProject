@@ -8,9 +8,10 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.Model.User
+import com.example.wheretoeat.Model.UserRestaurantCross
 
 
-@Database(entities = [Restaurant::class, User::class], version = 2, exportSchema = true)
+@Database(entities = [Restaurant::class, User::class, UserRestaurantCross::class], version = 3, exportSchema = true)
 abstract class RestaurantDatabase: RoomDatabase() {
 
     abstract fun RestaurantDao():RestaurantDao
@@ -23,6 +24,12 @@ abstract class RestaurantDatabase: RoomDatabase() {
             }
         }
 
+        val MIGRATION_2_3: Migration = object: Migration(2,3)
+        {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("CREATE TABLE IF NOT EXISTS `favorite_restaurants` (`favoriteID` INTEGER NOT NULL ,`id` INTEGER NOT NULL,`userID` INTEGER NOT NULL, PRIMARY KEY(`favoriteID`))")
+            }
+        }
 
         @Volatile
         private var INSTANCE: RestaurantDatabase?=null
@@ -37,7 +44,7 @@ abstract class RestaurantDatabase: RoomDatabase() {
                     context.applicationContext,
                     RestaurantDatabase::class.java,
                     "rest_database"
-                ).addMigrations(MIGRATION_1_2).build()
+                ).addMigrations(MIGRATION_1_2, MIGRATION_2_3).build()
                 INSTANCE = instance
                 return instance
             }

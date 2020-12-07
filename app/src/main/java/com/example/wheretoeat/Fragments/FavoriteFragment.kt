@@ -16,21 +16,26 @@ import com.example.wheretoeat.Adapter.Adapter
 import com.example.wheretoeat.Adapter.FavoriteAdapter
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.Model.User
+import com.example.wheretoeat.Model.UserRestaurantCross
+import com.example.wheretoeat.Model.UserWithRestaurant
 import com.example.wheretoeat.R
 import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
 import kotlinx.android.synthetic.main.fragment_favorit.view.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 
 class FavoriteFragment : Fragment() {
     private lateinit var daoViewModel: DaoViewModel
     var adapter: FavoriteAdapter? = null
 
+    @ExperimentalCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_favorit, container, false)
+        val view = inflater.inflate(R.layout.fragment_favorit, container, false)
 
         daoViewModel = ViewModelProvider(this).get(DaoViewModel::class.java)
         adapter = context?.let { FavoriteAdapter(daoViewModel, it) }
@@ -39,11 +44,21 @@ class FavoriteFragment : Fragment() {
         view.recycle_view_favorite.layoutManager = LinearLayoutManager(requireContext())
         view.recycle_view_favorite.setHasFixedSize(true)
 
-        daoViewModel.readAllData.observe(viewLifecycleOwner, Observer { restaurant ->
-            adapter!!.setData(restaurant as MutableList<Restaurant>)
-        })
+//        daoViewModel.readAllData.observe(viewLifecycleOwner, Observer { restaurant ->
+//            adapter!!.setData(restaurant as MutableList<Restaurant>)
+//        })
 
-        //Log.d("Pages: ", Constants.pages.toString())
+        val userLs = mutableListOf<Restaurant>()
+        val chr = runBlocking { daoViewModel.getUserWithRestaurant(Constants.user.userID) }
+
+        runBlocking {
+            chr.observe(viewLifecycleOwner, Observer {
+                for (vh in it) {
+                    userLs.addAll(vh.restaurants)
+                }
+            })
+            adapter?.setData(userLs)
+        }
 
         val delete = view.findViewById<ImageView>(R.id.allDelete)
         delete.setOnClickListener {
@@ -59,9 +74,6 @@ class FavoriteFragment : Fragment() {
                 }
             builder.create().show()
         }
-
-//        val user = User(1, "xx", "xx", "xx", "xx", "xx")
-//        daoViewModel.addUserDB(user)
 
         return view
     }

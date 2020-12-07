@@ -2,6 +2,7 @@ package com.example.wheretoeat.Fragments
 
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,17 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.example.wheretoeat.Model.User
 import com.example.wheretoeat.R
+import com.example.wheretoeat.Util.Constants
+import com.example.wheretoeat.ViewModel.DaoViewModel
+import kotlinx.coroutines.runBlocking
+import kotlin.random.Random
 
 class RegisterFragment : Fragment() {
+    private lateinit var daoViewModel: DaoViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,12 +30,13 @@ class RegisterFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_register, container, false)
 
+        daoViewModel = ViewModelProvider(this).get(DaoViewModel::class.java)
+
         val name = view.findViewById<TextView>(R.id.regTextTextPersonName)
         val pass = view.findViewById<TextView>(R.id.regTextTextPassword)
         val address = view.findViewById<TextView>(R.id.regTextAddress)
         val email = view.findViewById<TextView>(R.id.regTextTextEmail)
         val phone = view.findViewById<TextView>(R.id.regTextPhone)
-
 
         pass.transformationMethod = PasswordTransformationMethod()
 
@@ -35,22 +45,34 @@ class RegisterFragment : Fragment() {
 
         val register = view.findViewById<Button>(R.id.regButton)
         register.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("nickname", name.text.toString())
-            bundle.putString("password", pass.text.toString())
-            bundle.putString("address", address.text.toString())
-            bundle.putString("email", email.text.toString())
-            bundle.putString("phone", phone.text.toString())
-
-            val profilePageFragment = ProfileFragment()
-            profilePageFragment.arguments = bundle
-
             if(name.text.toString().isNotEmpty() && pass.text.toString().isNotEmpty() && address.text.toString().isNotEmpty()
                 && email.text.toString().isNotEmpty() && phone.text.toString().isNotEmpty()) {
-                val transaction =
-                    (context as FragmentActivity).supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.nav_host_fragment, profilePageFragment)
-                transaction.commit()
+
+                val bundle = Bundle()
+
+                val user = User(Constants.commonUserID++, name.text.toString(), pass.text.toString(), address.text.toString(),
+                    email.text.toString(), phone.text.toString())
+
+                val shr = runBlocking {  daoViewModel.getUserEmailDB(user.email)}
+                shr.observe(viewLifecycleOwner, Observer {
+                    if(it != null){
+                        Toast.makeText(context, "This email is already exist!", Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        daoViewModel.addUserDB(user)
+                        Constants.user = user
+
+                        Toast.makeText(context, "Registered!", Toast.LENGTH_SHORT).show()
+
+                        val profilePageFragment = ProfileFragment()
+                        profilePageFragment.arguments = bundle
+
+                        val transaction =
+                            (context as FragmentActivity).supportFragmentManager.beginTransaction()
+                        transaction.replace(R.id.nav_host_fragment, profilePageFragment)
+                        transaction.commit()
+                    }
+                })
             }
             else{
                 Toast.makeText(context, "Please fill out the fields!", Toast.LENGTH_SHORT).show()

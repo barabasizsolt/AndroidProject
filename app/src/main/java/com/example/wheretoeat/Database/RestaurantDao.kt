@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.Model.User
+import com.example.wheretoeat.Model.UserRestaurantCross
 import com.example.wheretoeat.Model.UserWithRestaurant
 
 @Dao
@@ -28,15 +29,27 @@ interface RestaurantDao {
     @Delete
     suspend fun deleteUser(user: User)
 
-    @Query("SELECT * FROM user_table WHERE userID =:userID")
-    fun getUser(userID: Int):LiveData<User>
+    @Query("DELETE FROM user_table")
+    suspend fun deleteAllUser()
+
+    @Query("SELECT * FROM user_table WHERE nickname =:nickname")
+    fun getUser(nickname: String):LiveData<User>
+
+    @Query("SELECT * FROM user_table WHERE email =:email")
+    fun getUserEmail(email: String):LiveData<User>
 
     @Query("SELECT * FROM user_table ORDER BY nickname ASC")
     fun readAllUser():LiveData<List<User>>
 
     //-----------------------------------------------------//
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addUserRestaurant(userRestaurantCross: UserRestaurantCross)
+
     @Transaction
     @Query("SELECT * FROM user_table WHERE userID =:userID")
-    fun getUserWithRestaurant(userID: Int):List<UserWithRestaurant>
+    fun getUserWithRestaurantDao(userID: Int):LiveData<List<UserWithRestaurant>>
+
+    @Query("DELETE FROM favorite_restaurants")
+    suspend fun deleteAllCross()
 }

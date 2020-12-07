@@ -9,6 +9,7 @@ data class UserWithRestaurant (
     @Relation(
         parentColumn = "userID",
         entityColumn = "id",
+        associateBy = Junction(UserRestaurantCross::class)
     )
     val restaurants: List<Restaurant>
 )

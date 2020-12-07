@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -15,9 +14,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wheretoeat.Fragments.DetailsPageFragment
 import com.example.wheretoeat.Model.Restaurant
+import com.example.wheretoeat.Model.UserRestaurantCross
 import com.example.wheretoeat.R
+import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
-import java.util.*
+import kotlinx.coroutines.runBlocking
 
 
 class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : RecyclerView.Adapter<Adapter.ViewHolder>(){
@@ -68,6 +69,11 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
                 .setCancelable(false)
                 .setPositiveButton("Yes") { dialog, id ->
                     daoViewModel.addRestaurantDB(currentItem)
+                    daoViewModel.addUserRestaurantDB(UserRestaurantCross(Constants.commonCrossID++, currentItem.id, Constants.user.userID))
+
+//                    runBlocking { daoViewModel.addRestaurantDB(currentItem)}
+//                    runBlocking { daoViewModel.addUserRestaurantDB(UserRestaurantCross(Constants.commonCrossID++, currentItem.id, Constants.user.userID)) }
+
                     notifyDataSetChanged()
                     Toast.makeText(holder.itemView.context, "Item added to favorites!", Toast.LENGTH_SHORT).show()
                 }

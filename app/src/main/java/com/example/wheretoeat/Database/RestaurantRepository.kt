@@ -3,6 +3,8 @@ package com.example.wheretoeat.Database
 import androidx.lifecycle.LiveData
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.Model.User
+import com.example.wheretoeat.Model.UserRestaurantCross
+import com.example.wheretoeat.Model.UserWithRestaurant
 
 class RestaurantRepository(private val restaurantDao: RestaurantDao) {
     val readAllData: LiveData<List<Restaurant>> = restaurantDao.readAllData()
@@ -30,13 +32,30 @@ class RestaurantRepository(private val restaurantDao: RestaurantDao) {
         restaurantDao.deleteUser(user)
     }
 
-    fun getUser(userID:Int) {
-        restaurantDao.getUser(userID)
+    suspend fun deleteAllUser(){
+        restaurantDao.deleteAllUser()
+    }
+
+
+    fun getUser(nickname:String):LiveData<User>{
+        return restaurantDao.getUser(nickname)
+    }
+
+    fun getUserEmail(email:String):LiveData<User>{
+        return restaurantDao.getUserEmail(email)
     }
 
     //--------------------------------------------------------//
 
-    suspend fun getUserWithRestaurant(userID: Int){
-        restaurantDao.getUserWithRestaurant(userID)
+    suspend fun addUserRestaurant(userRestaurantCross: UserRestaurantCross){
+        restaurantDao.addUserRestaurant(userRestaurantCross)
+    }
+
+    fun getUserWithRestaurant(userID: Int):LiveData<List<UserWithRestaurant>>{
+        return restaurantDao.getUserWithRestaurantDao(userID)
+    }
+
+    suspend fun deleteAllCross(){
+        restaurantDao.deleteAllCross()
     }
 }
