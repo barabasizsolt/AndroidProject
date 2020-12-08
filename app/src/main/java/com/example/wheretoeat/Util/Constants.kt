@@ -11,6 +11,7 @@ class Constants {
         const val BASE_URL = "http://opentable.herokuapp.com"
         var cities: ArrayList<String> = arrayListOf()
         var pages: MutableMap<String, Int> = hashMapOf()
+        var userLs = mutableListOf<Restaurant>()
         val myImageList = intArrayOf(R.drawable.avatar11, R.drawable.avatar22, R.drawable.avatar33, R.drawable.avatar44)
         lateinit var user: User
         var commonUserID:Int = 100

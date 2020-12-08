@@ -1,6 +1,7 @@
 package com.example.wheretoeat.Database
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.Model.User
@@ -52,4 +53,10 @@ interface RestaurantDao {
 
     @Query("DELETE FROM favorite_restaurants")
     suspend fun deleteAllCross()
+
+    @Query("SELECT * FROM favorite_restaurants WHERE id = :id and userID =:userID")
+    fun getUserCross(id:Int, userID: Int):LiveData<UserRestaurantCross>
+
+    @Query("DELETE FROM favorite_restaurants where id = :id and userID = :userID")
+    suspend fun deleteCross(id:Int, userID:Int)
 }

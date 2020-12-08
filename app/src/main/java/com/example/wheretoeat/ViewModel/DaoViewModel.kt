@@ -3,6 +3,7 @@ package com.example.wheretoeat.ViewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.wheretoeat.Database.RestaurantDatabase
 import com.example.wheretoeat.Database.RestaurantRepository
@@ -11,6 +12,7 @@ import com.example.wheretoeat.Model.User
 import com.example.wheretoeat.Model.UserRestaurantCross
 import com.example.wheretoeat.Model.UserWithRestaurant
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -83,7 +85,7 @@ class DaoViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    suspend fun getUserWithRestaurant(userID: Int) :LiveData<List<UserWithRestaurant>> =
+    suspend fun getUserWithRestaurant(userID: Int) : LiveData<List<UserWithRestaurant>> =
         withContext(viewModelScope.coroutineContext) {
             repository.getUserWithRestaurant(userID)
         }
@@ -91,6 +93,17 @@ class DaoViewModel(application: Application) : AndroidViewModel(application) {
     fun deleteAllCrossDB(){
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteAllCross()
+        }
+    }
+
+    suspend fun getUserCrossDB(id: Int, userID: Int):LiveData<UserRestaurantCross> =
+        withContext(viewModelScope.coroutineContext) {
+            repository.getUserCross(id, userID)
+        }
+
+    fun deleteCrossDB(id:Int, userID:Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteCross(id, userID)
         }
     }
 }

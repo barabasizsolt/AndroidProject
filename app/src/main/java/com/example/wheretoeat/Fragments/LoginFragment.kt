@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.R
 import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
@@ -42,16 +43,28 @@ class LoginFragment : Fragment() {
 
         val login = view.findViewById<Button>(R.id.loginButton)
         login.setOnClickListener {
-            if(name.text.toString().isNotEmpty() && pass.text.toString().isNotEmpty()) {
+            if (name.text.toString().isNotEmpty() && pass.text.toString().isNotEmpty()) {
                 val bundle = Bundle()
 
-                val shr = runBlocking {  daoViewModel.getUserDB(name.text.toString())}
-                shr.observe(viewLifecycleOwner, Observer {
+                val shr = runBlocking { daoViewModel.getUserDB(name.text.toString()) }
+                shr.observe(viewLifecycleOwner, {
                     if (it == null || it.password != pass.text.toString()) {
-                        Toast.makeText(context, "Wrong nickname or password!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Wrong nickname or password!", Toast.LENGTH_SHORT)
+                            .show()
                     } else {
                         Log.d("LOGIN", it.nickname)
                         Constants.user = it
+
+
+                        val chr = runBlocking { daoViewModel.getUserWithRestaurant(it.userID) }
+                        Log.d("chr", chr.toString())
+
+                        chr.observe(viewLifecycleOwner, { ls ->
+                            for (vh in ls) {
+                                Log.d("REST", vh.restaurants.toString())
+                                Constants.userLs.addAll(vh.restaurants)
+                            }
+                        })
 
                         Toast.makeText(context, "Welcome ${name.text}!", Toast.LENGTH_SHORT).show()
 
@@ -64,8 +77,7 @@ class LoginFragment : Fragment() {
                         transaction.commit()
                     }
                 })
-            }
-            else{
+            } else {
                 Toast.makeText(context, "Please fill out the fields!", Toast.LENGTH_SHORT).show()
             }
         }
@@ -79,7 +91,8 @@ class LoginFragment : Fragment() {
             val registerPageFragment = RegisterFragment()
             registerPageFragment.arguments = bundle
 
-            val transaction = (context as FragmentActivity).supportFragmentManager.beginTransaction()
+            val transaction =
+                (context as FragmentActivity).supportFragmentManager.beginTransaction()
             transaction.replace(R.id.nav_host_fragment, registerPageFragment)
             transaction.commit()
         }

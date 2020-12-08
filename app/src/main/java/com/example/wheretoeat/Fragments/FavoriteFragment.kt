@@ -48,32 +48,8 @@ class FavoriteFragment : Fragment() {
 //            adapter!!.setData(restaurant as MutableList<Restaurant>)
 //        })
 
-        val userLs = mutableListOf<Restaurant>()
-        val chr = runBlocking { daoViewModel.getUserWithRestaurant(Constants.user.userID) }
+        adapter?.setData(Constants.userLs)
 
-        runBlocking {
-            chr.observe(viewLifecycleOwner, Observer {
-                for (vh in it) {
-                    userLs.addAll(vh.restaurants)
-                }
-            })
-            adapter?.setData(userLs)
-        }
-
-        val delete = view.findViewById<ImageView>(R.id.allDelete)
-        delete.setOnClickListener {
-            val builder = AlertDialog.Builder(context)
-            builder.setMessage("Are you sure you want to Delete Everything?")
-                .setCancelable(false)
-                .setPositiveButton("Yes") { dialog, id ->
-                    daoViewModel.deleteAll()
-                    Toast.makeText(context, "Deleted!", Toast.LENGTH_SHORT).show()
-                }
-                .setNegativeButton("No") { dialog, id ->
-                    dialog.dismiss()
-                }
-            builder.create().show()
-        }
 
         return view
     }

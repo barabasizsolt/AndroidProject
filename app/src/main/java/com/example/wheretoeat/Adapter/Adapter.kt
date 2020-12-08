@@ -11,6 +11,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wheretoeat.Fragments.DetailsPageFragment
 import com.example.wheretoeat.Model.Restaurant
@@ -21,9 +23,10 @@ import com.example.wheretoeat.ViewModel.DaoViewModel
 import kotlinx.coroutines.runBlocking
 
 
-class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : RecyclerView.Adapter<Adapter.ViewHolder>(){
+class Adapter(private var daoViewModel: DaoViewModel, mContext: Context, mvVewLifecycleOwner : LifecycleOwner) : RecyclerView.Adapter<Adapter.ViewHolder>(){
     private var exampleList: MutableList<Restaurant> = mutableListOf()
     private var context = mContext
+    private var viewLifecycleO = mvVewLifecycleOwner
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
@@ -40,6 +43,7 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
         holder.restNameView.text = currentItem.name
         holder.restPhoneView.text = "Tel: " + currentItem.phone
         holder.restPriceView.text = "Minimum price: " + currentItem.price.toString() +  "$"
+
         when{
             currentItem.id % 2 == 0 -> {
                 holder.restImageView.setImageResource(R.drawable.foodimage5)
@@ -68,14 +72,30 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context) : Recyc
             builder.setMessage("Are you sure you want to add to Favorites?")
                 .setCancelable(false)
                 .setPositiveButton("Yes") { dialog, id ->
-                    daoViewModel.addRestaurantDB(currentItem)
-                    daoViewModel.addUserRestaurantDB(UserRestaurantCross(Constants.commonCrossID++, currentItem.id, Constants.user.userID))
 
-//                    runBlocking { daoViewModel.addRestaurantDB(currentItem)}
-//                    runBlocking { daoViewModel.addUserRestaurantDB(UserRestaurantCross(Constants.commonCrossID++, currentItem.id, Constants.user.userID)) }
+                    daoViewModel.addRestaurantDB(currentItem)
+
+//                    val chr = runBlocking {  daoViewModel.getUserCrossDB(currentItem.id, Constants.user.userID)}
+//                    chr.observe(viewLifecycleO, Observer {
+//                        if(it == null){
+//                            Constants.userLs.add(currentItem)
+//                            daoViewModel.addUserRestaurantDB(UserRestaurantCross(Constants.commonCrossID++, currentItem.id, Constants.user.userID))
+//
+//                            notifyDataSetChanged()
+//                            Toast.makeText(holder.itemView.context, "Item added to favorites!", Toast.LENGTH_SHORT).show()
+//                        }
+//                        else{
+//                            Toast.makeText(holder.itemView.context, "Item already in favorites!", Toast.LENGTH_SHORT).show()
+//                        }
+//                    })
+
+                    Constants.userLs.add(currentItem)
+                    daoViewModel.addUserRestaurantDB(UserRestaurantCross(Constants.commonCrossID++, currentItem.id, Constants.user.userID ))
 
                     notifyDataSetChanged()
+
                     Toast.makeText(holder.itemView.context, "Item added to favorites!", Toast.LENGTH_SHORT).show()
+
                 }
                 .setNegativeButton("No") { dialog, id ->
                     dialog.dismiss()

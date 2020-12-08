@@ -60,11 +60,10 @@ class DetailsPageFragment : Fragment() {
             builder.setMessage("Are you sure you want to add to Favorites?")
                 .setCancelable(false)
                 .setPositiveButton("Yes") { dialog, id ->
+                    Constants.userLs.add(restaurant)
+
                     daoViewModel.addRestaurantDB(restaurant)
                     daoViewModel.addUserRestaurantDB(UserRestaurantCross(Constants.commonCrossID++, restaurant.id, Constants.user.userID))
-
-//                    runBlocking { daoViewModel.addRestaurantDB(restaurant)}
-//                    runBlocking { daoViewModel.addUserRestaurantDB(UserRestaurantCross(Constants.commonCrossID++, restaurant.id, Constants.user.userID))}
 
                     Toast.makeText(context, "Item added to favorites!", Toast.LENGTH_SHORT)
                         .show()

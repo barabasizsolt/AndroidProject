@@ -75,6 +75,7 @@ class ProfileFragment : Fragment() {
         val logOut = view.findViewById<Button>(R.id.logOut)
         logOut.setOnClickListener {
             navBar.isVisible = false
+            Constants.userLs.clear()
             val transaction = (context as FragmentActivity).supportFragmentManager.beginTransaction()
             transaction.replace(R.id.nav_host_fragment, LoginFragment())
             transaction.commit()

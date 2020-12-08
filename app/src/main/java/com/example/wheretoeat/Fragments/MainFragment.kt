@@ -64,7 +64,7 @@ class MainFragment : Fragment() {
         }
 
         daoViewModel = ViewModelProvider(this).get(DaoViewModel::class.java)
-        adapter = context?.let { Adapter(daoViewModel, it) }
+        adapter = context?.let { Adapter(daoViewModel, it, viewLifecycleOwner) }
 
         view.recycle_view.adapter = adapter
         view.recycle_view.layoutManager = LinearLayoutManager(requireContext())
