@@ -10,6 +10,7 @@ import com.example.wheretoeat.Model.UserWithRestaurant
 class RestaurantRepository(private val restaurantDao: RestaurantDao) {
     val readAllData: LiveData<List<Restaurant>> = restaurantDao.readAllData()
     val readALLUser: LiveData<List<User>> = restaurantDao.readAllUser()
+    val readAllCross :LiveData<List<UserRestaurantCross>> = restaurantDao.getUserCrossALL()
 
     suspend fun addRestaurant(restaurant: Restaurant){
         restaurantDao.addRestaurantDao(restaurant)

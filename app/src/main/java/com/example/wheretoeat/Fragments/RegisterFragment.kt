@@ -43,24 +43,38 @@ class RegisterFragment : Fragment() {
         name.text = arguments?.getString("nicknameReg")
         pass.text = arguments?.getString("passwordReg")
 
+
         val register = view.findViewById<Button>(R.id.regButton)
         register.setOnClickListener {
-            if(name.text.toString().isNotEmpty() && pass.text.toString().isNotEmpty() && address.text.toString().isNotEmpty()
-                && email.text.toString().isNotEmpty() && phone.text.toString().isNotEmpty()) {
+            if (name.text.toString().isNotEmpty() && pass.text.toString()
+                    .isNotEmpty() && address.text.toString().isNotEmpty()
+                && email.text.toString().isNotEmpty() && phone.text.toString().isNotEmpty()
+            ) {
 
                 val bundle = Bundle()
 
-                val user = User(Constants.commonUserID++, name.text.toString(), pass.text.toString(), address.text.toString(),
-                    email.text.toString(), phone.text.toString())
+                val randomNumber: Int = java.util.Random().nextInt(100000)
+                val user = User(
+                    randomNumber,
+                    name.text.toString(),
+                    pass.text.toString(),
+                    address.text.toString(),
+                    email.text.toString(),
+                    phone.text.toString()
+                )
 
-                val shr = runBlocking {  daoViewModel.getUserEmailDB(user.email)}
+                val shr = runBlocking { daoViewModel.getUserEmailDB(user.email) }
                 shr.observe(viewLifecycleOwner, Observer {
-                    if(it != null){
-                        Toast.makeText(context, "This email is already exist!", Toast.LENGTH_SHORT).show()
-                    }
-                    else{
+                    if (it != null) {
+                        Toast.makeText(context, "This email is already exist!", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
                         daoViewModel.addUserDB(user)
                         Constants.user = user
+
+                        daoViewModel.readAllUser.observe(viewLifecycleOwner, { tmp ->
+                            Log.d("regUsr: ", tmp.toString())
+                        })
 
                         Toast.makeText(context, "Registered!", Toast.LENGTH_SHORT).show()
 
@@ -73,11 +87,12 @@ class RegisterFragment : Fragment() {
                         transaction.commit()
                     }
                 })
-            }
-            else{
-                Toast.makeText(context, "Please fill out the fields!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Please fill out the fields!", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
+
 
         val back = view.findViewById<Button>(R.id.backToLogin)
         back.setOnClickListener {

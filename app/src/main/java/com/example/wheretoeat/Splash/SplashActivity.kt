@@ -14,6 +14,7 @@ import com.example.wheretoeat.Repository.Repository
 import com.example.wheretoeat.ViewModel.MainRestaurantViewModelFactory
 import com.example.wheretoeat.ViewModel.RestaurantViewModel
 import com.example.wheretoeat.Util.Constants.Companion.cities
+import kotlinx.coroutines.runBlocking
 
 @Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {
@@ -30,21 +31,8 @@ class SplashActivity : AppCompatActivity() {
         viewModel.myResponseCity.observe(this, Observer { response ->
             if (response.isSuccessful) {
                 cities = response.body()?.cities!!
-
-//                for(city in cities){
-//                    viewModel.getAllRestaurant(city, 1)
-//                    //Log.d("city", city.toString())
-//                }
             }
         })
-
-//        viewModel.myResponseAll.observe(this, Observer {
-//                response1 ->
-//            if(response1.isSuccessful) {
-//                var total = response1.body()?.total_entries
-//                Log.d("total", response1.body()?.per_page.toString())
-//            }
-//        })
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,

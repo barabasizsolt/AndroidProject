@@ -15,6 +15,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.wheretoeat.Model.Restaurant
+import com.example.wheretoeat.Model.User
+import com.example.wheretoeat.Model.UserRestaurantCross
 import com.example.wheretoeat.R
 import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
@@ -33,54 +35,112 @@ class LoginFragment : Fragment() {
 
         daoViewModel = ViewModelProvider(this).get(DaoViewModel::class.java)
 
-//        runBlocking {  daoViewModel.deleteAll()}
-//        runBlocking {  daoViewModel.deleteAllUserDB()}
-//        runBlocking {  daoViewModel.deleteAllCrossDB()}
-
         val name = view.findViewById<TextView>(R.id.editTextTextPersonName)
         val pass = view.findViewById<TextView>(R.id.editTextTextPassword)
         pass.transformationMethod = PasswordTransformationMethod()
 
-        val login = view.findViewById<Button>(R.id.loginButton)
-        login.setOnClickListener {
-            if (name.text.toString().isNotEmpty() && pass.text.toString().isNotEmpty()) {
-                val bundle = Bundle()
+        runBlocking {
+            daoViewModel.readAllCross.observe(viewLifecycleOwner, {cr->
+                runBlocking {
+                    daoViewModel.readAllUser.observe(viewLifecycleOwner,{ls->
+                        runBlocking {
+                            daoViewModel.readAllData.observe(viewLifecycleOwner, {rs->
 
-                val shr = runBlocking { daoViewModel.getUserDB(name.text.toString()) }
-                shr.observe(viewLifecycleOwner, {
-                    if (it == null || it.password != pass.text.toString()) {
-                        Toast.makeText(context, "Wrong nickname or password!", Toast.LENGTH_SHORT)
-                            .show()
-                    } else {
-                        Log.d("LOGIN", it.nickname)
-                        Constants.user = it
+                                Log.d("cross: ", cr.size.toString())
+                                Log.d("user: ", ls.size.toString())
+                                Log.d("rest: ", rs.size.toString())
 
+                                val login = view.findViewById<Button>(R.id.loginButton)
+                                login.setOnClickListener {
+                                    if (name.text.toString().isNotEmpty() && pass.text.toString().isNotEmpty()) {
+                                        val bundle = Bundle()
 
-                        val chr = runBlocking { daoViewModel.getUserWithRestaurant(it.userID) }
-                        Log.d("chr", chr.toString())
+                                        runBlocking {
+                                            daoViewModel.getUserDB(name.text.toString()).observe(viewLifecycleOwner, {usr->
+                                                if (usr == null || usr.password != pass.text.toString()) {
+                                                    Toast.makeText(context, "Wrong nickname or password!", Toast.LENGTH_SHORT).show()
+                                                } else {
+                                                    Log.d("LOGIN", usr.nickname)
+                                                    Constants.user = usr
 
-                        chr.observe(viewLifecycleOwner, { ls ->
-                            for (vh in ls) {
-                                Log.d("REST", vh.restaurants.toString())
-                                Constants.userLs.addAll(vh.restaurants)
-                            }
-                        })
+                                                    for(v in cr){
+                                                        if(v.userID == usr.userID){
+                                                            for(w in rs){
+                                                                if(v.id == w.id){
+                                                                    Constants.userLs.add(w)
+                                                                    Log.d("userRest: ", w.toString())
+                                                                }
+                                                            }
+                                                        }
+                                                    }
 
-                        Toast.makeText(context, "Welcome ${name.text}!", Toast.LENGTH_SHORT).show()
+                                                    Toast.makeText(context, "Welcome ${name.text}!", Toast.LENGTH_SHORT).show()
 
-                        val profilePageFragment = ProfileFragment()
-                        profilePageFragment.arguments = bundle
+                                                    val profilePageFragment = ProfileFragment()
+                                                    profilePageFragment.arguments = bundle
 
-                        val transaction =
-                            (context as FragmentActivity).supportFragmentManager.beginTransaction()
-                        transaction.replace(R.id.nav_host_fragment, profilePageFragment)
-                        transaction.commit()
-                    }
-                })
-            } else {
-                Toast.makeText(context, "Please fill out the fields!", Toast.LENGTH_SHORT).show()
-            }
+                                                    val transaction =
+                                                        (context as FragmentActivity).supportFragmentManager.beginTransaction()
+                                                    transaction.replace(R.id.nav_host_fragment, profilePageFragment)
+                                                    transaction.commit()
+                                                }
+                                            })
+                                        }
+                                    } else {
+                                        Toast.makeText(context, "Please fill out the fields!", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            })
+                        }
+                    })
+                }
+            })
         }
+
+//        runBlocking {  daoViewModel.deleteAll()}
+//        runBlocking {  daoViewModel.deleteAllUserDB()}
+//        runBlocking {  daoViewModel.deleteAllCrossDB()}
+
+//        val login = view.findViewById<Button>(R.id.loginButton)
+//        login.setOnClickListener {
+//            if (name.text.toString().isNotEmpty() && pass.text.toString().isNotEmpty()) {
+//                val bundle = Bundle()
+//
+//                runBlocking {
+//                    daoViewModel.getUserDB(name.text.toString()).observe(viewLifecycleOwner, {
+//                        if (it == null || it.password != pass.text.toString()) {
+//                            Toast.makeText(context, "Wrong nickname or password!", Toast.LENGTH_SHORT).show()
+//                        } else {
+//                            Log.d("LOGIN", it.nickname)
+//                            Constants.user = it
+//
+//                            runBlocking {
+//                                daoViewModel.getUserWithRestaurant(it.userID).observe(
+//                                    viewLifecycleOwner, Observer { ls ->
+//                                        for (vh in ls) {
+//                                            Log.d("REST", vh.restaurants.toString())
+//                                            Constants.userLs.addAll(vh.restaurants)
+//                                        }
+//                                    }
+//                                )
+//                            }
+//
+//                            Toast.makeText(context, "Welcome ${name.text}!", Toast.LENGTH_SHORT).show()
+//
+//                            val profilePageFragment = ProfileFragment()
+//                            profilePageFragment.arguments = bundle
+//
+//                            val transaction =
+//                                (context as FragmentActivity).supportFragmentManager.beginTransaction()
+//                            transaction.replace(R.id.nav_host_fragment, profilePageFragment)
+//                            transaction.commit()
+//                        }
+//                    })
+//                }
+//            } else {
+//                Toast.makeText(context, "Please fill out the fields!", Toast.LENGTH_SHORT).show()
+//            }
+//        }
 
         val register = view.findViewById<Button>(R.id.registerButton)
         register.setOnClickListener {

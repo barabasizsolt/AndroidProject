@@ -11,14 +11,12 @@ import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.Model.User
 import com.example.wheretoeat.Model.UserRestaurantCross
 import com.example.wheretoeat.Model.UserWithRestaurant
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class DaoViewModel(application: Application) : AndroidViewModel(application) {
     val readAllData: LiveData<List<Restaurant>>
     val readAllUser: LiveData<List<User>>
+    val readAllCross:LiveData<List<UserRestaurantCross>>
     private val repository: RestaurantRepository
 
     init {
@@ -27,6 +25,7 @@ class DaoViewModel(application: Application) : AndroidViewModel(application) {
         repository = RestaurantRepository(restaurantDao)
         readAllData = repository.readAllData
         readAllUser = repository.readALLUser
+        readAllCross = repository.readAllCross
     }
 
     fun addRestaurantDB(restaurant: Restaurant) {
@@ -86,7 +85,7 @@ class DaoViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     suspend fun getUserWithRestaurant(userID: Int) : LiveData<List<UserWithRestaurant>> =
-        withContext(viewModelScope.coroutineContext) {
+        withContext(GlobalScope.coroutineContext) {
             repository.getUserWithRestaurant(userID)
         }
 

@@ -21,6 +21,7 @@ import com.example.wheretoeat.R
 import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
 import kotlinx.coroutines.runBlocking
+import java.util.*
 
 
 class Adapter(private var daoViewModel: DaoViewModel, mContext: Context, mvVewLifecycleOwner : LifecycleOwner) : RecyclerView.Adapter<Adapter.ViewHolder>(){
@@ -89,11 +90,10 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context, mvVewLi
 //                        }
 //                    })
 
+                    val randomNumber: Int = Random().nextInt(100000)
                     Constants.userLs.add(currentItem)
-                    daoViewModel.addUserRestaurantDB(UserRestaurantCross(Constants.commonCrossID++, currentItem.id, Constants.user.userID ))
-
+                    daoViewModel.addUserRestaurantDB(UserRestaurantCross(randomNumber, currentItem.id, Constants.user.userID ))
                     notifyDataSetChanged()
-
                     Toast.makeText(holder.itemView.context, "Item added to favorites!", Toast.LENGTH_SHORT).show()
 
                 }

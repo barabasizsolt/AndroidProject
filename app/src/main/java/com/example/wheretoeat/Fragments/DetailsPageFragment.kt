@@ -23,6 +23,7 @@ import com.example.wheretoeat.R
 import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
 import kotlinx.coroutines.runBlocking
+import java.util.*
 
 
 class DetailsPageFragment : Fragment() {
@@ -62,8 +63,9 @@ class DetailsPageFragment : Fragment() {
                 .setPositiveButton("Yes") { dialog, id ->
                     Constants.userLs.add(restaurant)
 
+                    val randomNumber: Int = Random().nextInt(100000)
                     daoViewModel.addRestaurantDB(restaurant)
-                    daoViewModel.addUserRestaurantDB(UserRestaurantCross(Constants.commonCrossID++, restaurant.id, Constants.user.userID))
+                    daoViewModel.addUserRestaurantDB(UserRestaurantCross(randomNumber, restaurant.id, Constants.user.userID))
 
                     Toast.makeText(context, "Item added to favorites!", Toast.LENGTH_SHORT)
                         .show()

@@ -57,6 +57,9 @@ interface RestaurantDao {
     @Query("SELECT * FROM favorite_restaurants WHERE id = :id and userID =:userID")
     fun getUserCross(id:Int, userID: Int):LiveData<UserRestaurantCross>
 
+    @Query("SELECT * FROM favorite_restaurants")
+    fun getUserCrossALL():LiveData<List<UserRestaurantCross>>
+
     @Query("DELETE FROM favorite_restaurants where id = :id and userID = :userID")
     suspend fun deleteCross(id:Int, userID:Int)
 }
