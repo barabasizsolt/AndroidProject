@@ -7,12 +7,21 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface SimpleApi {
-    @GET("api/restaurants")
+//    @GET("api/restaurants")
+//    suspend fun getAllRestaurants(
+//        @Query("city") city : String,
+//        @Query("page") page : Int
+//    ): Response<AllRestaurant>
+//
+//    @GET("api/cities")
+//    suspend fun getCities(): Response<City>
+
+    @GET("/restaurants")
     suspend fun getAllRestaurants(
         @Query("city") city : String,
         @Query("page") page : Int
     ): Response<AllRestaurant>
 
-    @GET("api/cities")
+    @GET("/cities")
     suspend fun getCities(): Response<City>
 }

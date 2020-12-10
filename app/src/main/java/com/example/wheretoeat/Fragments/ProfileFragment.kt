@@ -44,8 +44,6 @@ class ProfileFragment : Fragment() {
         profileEmail.text = user.email
         profilePhone.text = user.mobile
 
-        Log.d("USER", user.toString())
-
         val profileLogo = view.findViewById<ImageView>(R.id.userLogo)
 
         val modelList: List<Logo> = readFromAsset()

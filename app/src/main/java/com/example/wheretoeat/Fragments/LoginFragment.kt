@@ -101,47 +101,6 @@ class LoginFragment : Fragment() {
 //        runBlocking {  daoViewModel.deleteAllUserDB()}
 //        runBlocking {  daoViewModel.deleteAllCrossDB()}
 
-//        val login = view.findViewById<Button>(R.id.loginButton)
-//        login.setOnClickListener {
-//            if (name.text.toString().isNotEmpty() && pass.text.toString().isNotEmpty()) {
-//                val bundle = Bundle()
-//
-//                runBlocking {
-//                    daoViewModel.getUserDB(name.text.toString()).observe(viewLifecycleOwner, {
-//                        if (it == null || it.password != pass.text.toString()) {
-//                            Toast.makeText(context, "Wrong nickname or password!", Toast.LENGTH_SHORT).show()
-//                        } else {
-//                            Log.d("LOGIN", it.nickname)
-//                            Constants.user = it
-//
-//                            runBlocking {
-//                                daoViewModel.getUserWithRestaurant(it.userID).observe(
-//                                    viewLifecycleOwner, Observer { ls ->
-//                                        for (vh in ls) {
-//                                            Log.d("REST", vh.restaurants.toString())
-//                                            Constants.userLs.addAll(vh.restaurants)
-//                                        }
-//                                    }
-//                                )
-//                            }
-//
-//                            Toast.makeText(context, "Welcome ${name.text}!", Toast.LENGTH_SHORT).show()
-//
-//                            val profilePageFragment = ProfileFragment()
-//                            profilePageFragment.arguments = bundle
-//
-//                            val transaction =
-//                                (context as FragmentActivity).supportFragmentManager.beginTransaction()
-//                            transaction.replace(R.id.nav_host_fragment, profilePageFragment)
-//                            transaction.commit()
-//                        }
-//                    })
-//                }
-//            } else {
-//                Toast.makeText(context, "Please fill out the fields!", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-
         val register = view.findViewById<Button>(R.id.registerButton)
         register.setOnClickListener {
             val bundle = Bundle()

@@ -61,14 +61,24 @@ class DetailsPageFragment : Fragment() {
             builder.setMessage("Are you sure you want to add to Favorites?")
                 .setCancelable(false)
                 .setPositiveButton("Yes") { dialog, id ->
-                    Constants.userLs.add(restaurant)
-
-                    val randomNumber: Int = Random().nextInt(100000)
                     daoViewModel.addRestaurantDB(restaurant)
-                    daoViewModel.addUserRestaurantDB(UserRestaurantCross(randomNumber, restaurant.id, Constants.user.userID))
 
-                    Toast.makeText(context, "Item added to favorites!", Toast.LENGTH_SHORT)
-                        .show()
+                    var flag:Boolean = false
+                    daoViewModel.readAllCross.observe(viewLifecycleOwner, {cr->
+
+                        for(v in cr){
+                            if(v.id == restaurant.id && v.userID == Constants.user.userID){
+                                flag = true
+                            }
+                        }
+
+                        if(!flag){
+                            val randomNumber: Int = Random().nextInt(100000)
+                            Constants.userLs.add(restaurant)
+                            daoViewModel.addUserRestaurantDB(UserRestaurantCross(randomNumber, restaurant.id, Constants.user.userID ))
+                            Toast.makeText(context, "Item added to favorites!", Toast.LENGTH_SHORT).show()
+                        }
+                    })
                 }
                 .setNegativeButton("No") { dialog, id ->
                     dialog.dismiss()

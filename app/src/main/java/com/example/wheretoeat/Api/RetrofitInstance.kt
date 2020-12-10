@@ -1,12 +1,12 @@
 package com.example.wheretoeat.Api
 
-import com.example.wheretoeat.Util.Constants.Companion.BASE_URL
+import com.example.wheretoeat.Util.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
     private val retrofit by lazy {
-        Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
+        Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
     }
 
     val api:SimpleApi by lazy {

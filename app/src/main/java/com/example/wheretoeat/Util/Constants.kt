@@ -9,7 +9,8 @@ import com.example.wheretoeat.R
 
 class Constants {
     companion object {
-        const val BASE_URL = "http://opentable.herokuapp.com"
+        //const val BASE_URL = "http://opentable.herokuapp.com"
+        const val BASE_URL = "https://ratpark-api.imok.space"
         var cities: ArrayList<String> = arrayListOf()
         var pages: MutableMap<String, Int> = hashMapOf()
         var userLs = mutableListOf<Restaurant>()

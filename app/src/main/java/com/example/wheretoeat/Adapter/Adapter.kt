@@ -73,28 +73,25 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context, mvVewLi
             builder.setMessage("Are you sure you want to add to Favorites?")
                 .setCancelable(false)
                 .setPositiveButton("Yes") { dialog, id ->
-
                     daoViewModel.addRestaurantDB(currentItem)
 
-//                    val chr = runBlocking {  daoViewModel.getUserCrossDB(currentItem.id, Constants.user.userID)}
-//                    chr.observe(viewLifecycleO, Observer {
-//                        if(it == null){
-//                            Constants.userLs.add(currentItem)
-//                            daoViewModel.addUserRestaurantDB(UserRestaurantCross(Constants.commonCrossID++, currentItem.id, Constants.user.userID))
-//
-//                            notifyDataSetChanged()
-//                            Toast.makeText(holder.itemView.context, "Item added to favorites!", Toast.LENGTH_SHORT).show()
-//                        }
-//                        else{
-//                            Toast.makeText(holder.itemView.context, "Item already in favorites!", Toast.LENGTH_SHORT).show()
-//                        }
-//                    })
+                    var flag:Boolean = false
+                    daoViewModel.readAllCross.observe(viewLifecycleO, {cr->
 
-                    val randomNumber: Int = Random().nextInt(100000)
-                    Constants.userLs.add(currentItem)
-                    daoViewModel.addUserRestaurantDB(UserRestaurantCross(randomNumber, currentItem.id, Constants.user.userID ))
-                    notifyDataSetChanged()
-                    Toast.makeText(holder.itemView.context, "Item added to favorites!", Toast.LENGTH_SHORT).show()
+                        for(v in cr){
+                            if(v.id == currentItem.id && v.userID == Constants.user.userID){
+                                flag = true
+                            }
+                        }
+
+                        if(!flag){
+                            val randomNumber: Int = Random().nextInt(100000)
+                            Constants.userLs.add(currentItem)
+                            daoViewModel.addUserRestaurantDB(UserRestaurantCross(randomNumber, currentItem.id, Constants.user.userID ))
+                            notifyDataSetChanged()
+                            Toast.makeText(holder.itemView.context, "Item added to favorites!", Toast.LENGTH_SHORT).show()
+                        }
+                    })
 
                 }
                 .setNegativeButton("No") { dialog, id ->
