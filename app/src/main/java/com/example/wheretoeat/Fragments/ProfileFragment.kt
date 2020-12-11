@@ -79,6 +79,13 @@ class ProfileFragment : Fragment() {
             transaction.commit()
         }
 
+        val resetPwd =view.findViewById<Button>(R.id.resetPassword)
+        resetPwd.setOnClickListener {
+            val transaction = (context as FragmentActivity).supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.nav_host_fragment, ResetFragment())
+            transaction.commit()
+        }
+
         return view
     }
 

@@ -47,6 +47,10 @@ class RestaurantRepository(private val restaurantDao: RestaurantDao) {
         return restaurantDao.getUserEmail(email)
     }
 
+    fun updatePassword(password:String, userID: Int){
+        restaurantDao.updatePassword(password, userID)
+    }
+
     //--------------------------------------------------------//
 
     suspend fun addUserRestaurant(userRestaurantCross: UserRestaurantCross){

@@ -42,6 +42,9 @@ interface RestaurantDao {
     @Query("SELECT * FROM user_table ORDER BY nickname ASC")
     fun readAllUser():LiveData<List<User>>
 
+    @Query("UPDATE user_table SET password = :password where userID = :userID")
+    fun updatePassword(password:String, userID: Int)
+
     //-----------------------------------------------------//
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

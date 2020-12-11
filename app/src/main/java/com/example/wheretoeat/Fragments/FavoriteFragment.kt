@@ -40,19 +40,6 @@ class FavoriteFragment : Fragment() {
         daoViewModel = ViewModelProvider(this).get(DaoViewModel::class.java)
         adapter = context?.let { FavoriteAdapter(daoViewModel, it) }
 
-//        Constants.userLs.clear()
-//
-//        runBlocking {
-//            daoViewModel.getUserWithRestaurant(Constants.user.userID).observe(
-//                viewLifecycleOwner, Observer { ls ->
-//                    for (vh in ls) {
-//                        Log.d("REST", vh.restaurants.toString())
-//                        Constants.userLs.addAll(vh.restaurants)
-//                    }
-//                }
-//            )
-//        }
-
         view.recycle_view_favorite.adapter = adapter
         view.recycle_view_favorite.layoutManager = LinearLayoutManager(requireContext())
         view.recycle_view_favorite.setHasFixedSize(true)

@@ -76,6 +76,12 @@ class DaoViewModel(application: Application) : AndroidViewModel(application) {
             repository.getUserEmail(email)
         }
 
+    fun updatePasswordDB(password:String, userID: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updatePassword(password, userID)
+        }
+    }
+
     //-----------------------------------------------------------//
 
     fun addUserRestaurantDB(userRestaurantCross: UserRestaurantCross) {

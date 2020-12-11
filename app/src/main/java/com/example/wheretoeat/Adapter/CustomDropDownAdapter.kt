@@ -27,10 +27,10 @@ class CustomDropDownAdapter(val context: Context, var dataSource: List<Logo>) : 
             view = convertView
             vh = view.tag as ItemHolder
         }
-        vh.label.text = dataSource.get(position).name
+        vh.label.text = dataSource[position].name
 
         val id = context.resources.getIdentifier(
-            dataSource.get(position).url,
+            dataSource[position].url,
             "drawable",
             context.packageName
         )

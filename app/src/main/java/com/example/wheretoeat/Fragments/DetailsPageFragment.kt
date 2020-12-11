@@ -60,7 +60,7 @@ class DetailsPageFragment : Fragment() {
             val builder = AlertDialog.Builder(view.context)
             builder.setMessage("Are you sure you want to add to Favorites?")
                 .setCancelable(false)
-                .setPositiveButton("Yes") { dialog, id ->
+                .setPositiveButton("Yes") { _, _ ->
                     daoViewModel.addRestaurantDB(restaurant)
 
                     var flag:Boolean = false
@@ -69,6 +69,7 @@ class DetailsPageFragment : Fragment() {
                         for(v in cr){
                             if(v.id == restaurant.id && v.userID == Constants.user.userID){
                                 flag = true
+                                break
                             }
                         }
 
@@ -80,7 +81,7 @@ class DetailsPageFragment : Fragment() {
                         }
                     })
                 }
-                .setNegativeButton("No") { dialog, id ->
+                .setNegativeButton("No") { dialog, _ ->
                     dialog.dismiss()
                 }
             builder.create().show()
@@ -90,8 +91,6 @@ class DetailsPageFragment : Fragment() {
         mapButton.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_VIEW
-            val lat = arguments?.getString("lat")
-            val lng = arguments?.getString("lng")
 
             intent.data = Uri.parse("geo:${restaurant.lat},${restaurant.lng}")
             startActivity(intent)

@@ -46,10 +46,6 @@ class LoginFragment : Fragment() {
                         runBlocking {
                             daoViewModel.readAllData.observe(viewLifecycleOwner, {rs->
 
-                                Log.d("cross: ", cr.size.toString())
-                                Log.d("user: ", ls.size.toString())
-                                Log.d("rest: ", rs.size.toString())
-
                                 val login = view.findViewById<Button>(R.id.loginButton)
                                 login.setOnClickListener {
                                     if (name.text.toString().isNotEmpty() && pass.text.toString().isNotEmpty()) {

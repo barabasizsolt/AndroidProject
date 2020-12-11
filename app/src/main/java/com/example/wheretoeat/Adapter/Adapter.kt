@@ -72,7 +72,7 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context, mvVewLi
             val builder = AlertDialog.Builder(holder.itemView.context)
             builder.setMessage("Are you sure you want to add to Favorites?")
                 .setCancelable(false)
-                .setPositiveButton("Yes") { dialog, id ->
+                .setPositiveButton("Yes") { _, _ ->
                     daoViewModel.addRestaurantDB(currentItem)
 
                     var flag:Boolean = false
@@ -81,6 +81,7 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context, mvVewLi
                         for(v in cr){
                             if(v.id == currentItem.id && v.userID == Constants.user.userID){
                                 flag = true
+                                break
                             }
                         }
 
@@ -94,7 +95,7 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context, mvVewLi
                     })
 
                 }
-                .setNegativeButton("No") { dialog, id ->
+                .setNegativeButton("No") { dialog, _ ->
                     dialog.dismiss()
                 }
             builder.create().show()
