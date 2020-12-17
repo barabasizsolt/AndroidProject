@@ -1,7 +1,6 @@
 package com.example.wheretoeat.Database
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.wheretoeat.Model.*
 

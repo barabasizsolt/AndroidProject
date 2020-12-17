@@ -12,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wheretoeat.Fragments.DetailsPageFragment
 import com.example.wheretoeat.Model.Restaurant
@@ -20,7 +19,6 @@ import com.example.wheretoeat.Model.UserRestaurantCross
 import com.example.wheretoeat.R
 import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
-import kotlinx.coroutines.runBlocking
 import java.util.*
 
 
@@ -76,9 +74,9 @@ class Adapter(private var daoViewModel: DaoViewModel, mContext: Context, mvVewLi
                     daoViewModel.addRestaurantDB(currentItem)
 
                     var flag:Boolean = false
-                    daoViewModel.readAllCross.observe(viewLifecycleO, {cr->
+                    daoViewModel.readAllCross.observe(viewLifecycleO, {cross->
 
-                        for(v in cr){
+                        for(v in cross){
                             if(v.id == currentItem.id && v.userID == Constants.user.userID){
                                 flag = true
                                 break

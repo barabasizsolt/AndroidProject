@@ -35,11 +35,11 @@ class LoginFragment : Fragment() {
         pass.transformationMethod = PasswordTransformationMethod()
 
         runBlocking {
-            daoViewModel.readAllCross.observe(viewLifecycleOwner, {cr->
+            daoViewModel.readAllCross.observe(viewLifecycleOwner, {cross->
                 runBlocking {
-                    daoViewModel.readAllUser.observe(viewLifecycleOwner,{ls->
+                    daoViewModel.readAllUser.observe(viewLifecycleOwner,{usr->
                         runBlocking {
-                            daoViewModel.readAllData.observe(viewLifecycleOwner, {rs->
+                            daoViewModel.readAllData.observe(viewLifecycleOwner, {rest->
 
                                 val login = view.findViewById<Button>(R.id.loginButton)
                                 login.setOnClickListener {
@@ -54,9 +54,9 @@ class LoginFragment : Fragment() {
                                                     Log.d("LOGIN", usr.nickname)
                                                     Constants.user = usr
 
-                                                    for(v in cr){
+                                                    for(v in cross){
                                                         if(v.userID == usr.userID){
-                                                            for(w in rs){
+                                                            for(w in rest){
                                                                 if(v.id == w.id){
                                                                     Constants.userLs.add(w)
                                                                     Log.d("userRest: ", w.toString())

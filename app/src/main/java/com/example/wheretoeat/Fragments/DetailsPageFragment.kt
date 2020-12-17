@@ -22,10 +22,7 @@ import com.example.wheretoeat.R
 import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
 import com.google.gson.Gson
-import kotlinx.coroutines.runBlocking
 import java.util.*
-import kotlin.collections.ArrayList
-
 
 class DetailsPageFragment : Fragment() {
     private lateinit var daoViewModel: DaoViewModel
@@ -58,7 +55,6 @@ class DetailsPageFragment : Fragment() {
         val customDropDownAdapter = context?.let { CustomDropDownAdapter(it, modelList) }
         val spinnerRestImg = view.findViewById<Spinner>(R.id.spinnerRestImage)
 
-        //spinnerRestImg.isVisible = !isV!!
         if (spinnerRestImg != null) {
             spinnerRestImg.adapter = customDropDownAdapter
         }
@@ -82,9 +78,9 @@ class DetailsPageFragment : Fragment() {
                     daoViewModel.addRestaurantDB(restaurant)
 
                     var flag:Boolean = false
-                    daoViewModel.readAllCross.observe(viewLifecycleOwner, {cr->
+                    daoViewModel.readAllCross.observe(viewLifecycleOwner, {cross->
 
-                        for(v in cr){
+                        for(v in cross){
                             if(v.id == restaurant.id && v.userID == Constants.user.userID){
                                 flag = true
                                 break

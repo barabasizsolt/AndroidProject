@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,6 @@ import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.R
 import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
-import kotlinx.coroutines.runBlocking
 
 class FavoriteAdapter (private var daoViewModel: DaoViewModel, mContext: Context) : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>(){
     private var exampleList: MutableList<Restaurant> = mutableListOf()
