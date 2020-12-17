@@ -46,8 +46,7 @@ class RegisterFragment : Fragment() {
 
         val register = view.findViewById<Button>(R.id.regButton)
         register.setOnClickListener {
-            if (name.text.toString().isNotEmpty() && pass.text.toString()
-                    .isNotEmpty() && address.text.toString().isNotEmpty()
+            if (name.text.toString().isNotEmpty() && pass.text.toString().isNotEmpty() && address.text.toString().isNotEmpty()
                 && email.text.toString().isNotEmpty() && phone.text.toString().isNotEmpty()
             ) {
 
@@ -66,8 +65,7 @@ class RegisterFragment : Fragment() {
                 val shr = runBlocking { daoViewModel.getUserEmailDB(user.email) }
                 shr.observe(viewLifecycleOwner, Observer {
                     if (it != null) {
-                        Toast.makeText(context, "This email is already exist!", Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(context, "This email is already exist!", Toast.LENGTH_SHORT).show()
                     } else {
                         daoViewModel.addUserDB(user)
                         Constants.user = user
@@ -92,7 +90,6 @@ class RegisterFragment : Fragment() {
                     .show()
             }
         }
-
 
         val back = view.findViewById<Button>(R.id.backToLogin)
         back.setOnClickListener {

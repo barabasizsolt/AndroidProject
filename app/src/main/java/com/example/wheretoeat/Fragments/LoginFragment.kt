@@ -1,6 +1,5 @@
 package com.example.wheretoeat.Fragments
 
-import android.R.attr.password
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
@@ -12,11 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.wheretoeat.Model.Restaurant
-import com.example.wheretoeat.Model.User
-import com.example.wheretoeat.Model.UserRestaurantCross
 import com.example.wheretoeat.R
 import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel

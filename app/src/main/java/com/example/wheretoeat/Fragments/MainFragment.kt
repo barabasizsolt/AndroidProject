@@ -125,7 +125,7 @@ class MainFragment : Fragment() {
                 val filteredList = mutableListOf<Restaurant>()
                 if(s.toString().isNotEmpty()){
                     adapter?.setData(L.filter {
-                        it.name.toLowerCase(Locale.ROOT).contains(s.toString().toLowerCase(Locale.ROOT))
+                        it.price.toString().toLowerCase(Locale.ROOT).contains(s.toString().toLowerCase(Locale.ROOT))
                     } as MutableList<Restaurant>)
                 }
                 else{
