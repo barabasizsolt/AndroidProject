@@ -24,6 +24,7 @@ import com.example.wheretoeat.ViewModel.DaoViewModel
 import com.google.gson.Gson
 import kotlinx.coroutines.runBlocking
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class DetailsPageFragment : Fragment() {
@@ -55,9 +56,9 @@ class DetailsPageFragment : Fragment() {
 
         val modelList: List<Logo> = readFromAsset()
         val customDropDownAdapter = context?.let { CustomDropDownAdapter(it, modelList) }
-
         val spinnerRestImg = view.findViewById<Spinner>(R.id.spinnerRestImage)
-        spinnerRestImg.isVisible = !isV!!
+
+        //spinnerRestImg.isVisible = !isV!!
         if (spinnerRestImg != null) {
             spinnerRestImg.adapter = customDropDownAdapter
         }
@@ -72,7 +73,7 @@ class DetailsPageFragment : Fragment() {
         }
 
         val hearth = view.findViewById<ImageView>(R.id.logoFavorite)
-        hearth.isVisible = isV
+        hearth.isVisible = isV!!
         hearth.setOnClickListener{
             val builder = AlertDialog.Builder(view.context)
             builder.setMessage("Are you sure you want to add to Favorites?")

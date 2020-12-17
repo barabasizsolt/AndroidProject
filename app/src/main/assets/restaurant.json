@@ -1,14 +1,14 @@
 [
   {
-    "name": "ImageA",
-    "url": "foodimage4"
+    "name": "Outside",
+    "url": "out"
   },
   {
-    "name": "ImageB",
-    "url": "foodimage5"
+    "name": "Inside",
+    "url": "inside"
   },
   {
-    "name": "ImageC",
-    "url": "foodimage6"
+    "name": "Food Menu",
+    "url": "menu"
   }
 ]

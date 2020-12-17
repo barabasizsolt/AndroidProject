@@ -31,20 +31,6 @@ abstract class RestaurantDatabase: RoomDatabase() {
             }
         }
 
-        private val MIGRATION_3_4: Migration = object: Migration(3,4)
-        {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("CREATE TABLE IF NOT EXISTS `rest_image` (`restImgID` INTEGER NOT NULL ,`id` INTEGER NOT NULL,`imageID` INTEGER NOT NULL, PRIMARY KEY(`restImgID`))")
-            }
-        }
-
-        private val MIGRATION_4_5: Migration = object: Migration(4,5)
-        {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("CREATE TABLE IF NOT EXISTS `rest_image` (`restImgID` INTEGER NOT NULL ,`id` INTEGER NOT NULL,`imageID` INTEGER NOT NULL, PRIMARY KEY(`restImgID`))")
-            }
-        }
-
         @Volatile
         private var INSTANCE: RestaurantDatabase?=null
 
@@ -58,7 +44,7 @@ abstract class RestaurantDatabase: RoomDatabase() {
                     context.applicationContext,
                     RestaurantDatabase::class.java,
                     "rest_database"
-                ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_4_5).build()
+                ).addMigrations(MIGRATION_1_2, MIGRATION_2_3).build()
                 INSTANCE = instance
                 return instance
             }

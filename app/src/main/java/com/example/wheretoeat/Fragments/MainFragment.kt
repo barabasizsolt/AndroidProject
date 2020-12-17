@@ -44,23 +44,23 @@ class MainFragment : Fragment() {
 
         val spinner = view.findViewById<Spinner>(R.id.spinner)
         if (spinner != null) {
-            val adapter1 =
+            val adapter =
                 activity?.let {
                     ArrayAdapter(it, android.R.layout.simple_spinner_item, Constants.cities
                     )
                 }
-            spinner.adapter = adapter1
+            spinner.adapter = adapter
         }
 
         val pageNum = (1..100).toList()
         val spinnerPage = view.findViewById<Spinner>(R.id.spinnerPage)
         if (spinnerPage != null) {
-            val adapter1 =
+            val adapter =
                 activity?.let {
                     ArrayAdapter(it, android.R.layout.simple_spinner_item, pageNum
                     )
                 }
-            spinnerPage.adapter = adapter1
+            spinnerPage.adapter = adapter
         }
 
         daoViewModel = ViewModelProvider(this).get(DaoViewModel::class.java)
