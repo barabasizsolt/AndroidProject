@@ -122,7 +122,6 @@ class MainFragment : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val filteredList = mutableListOf<Restaurant>()
                 if(s.toString().isNotEmpty()){
                     adapter?.setData(L.filter {
                         it.price.toString().toLowerCase(Locale.ROOT).contains(s.toString().toLowerCase(Locale.ROOT))

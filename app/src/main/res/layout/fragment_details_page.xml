@@ -7,53 +7,49 @@
     android:background="#450045"
     tools:context=".Fragments.DetailsPageFragment">
 
-
     <TextView
         android:id="@+id/detailsName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:layout_marginTop="12dp"
-        android:drawableStart="@drawable/ic_rest"
         android:paddingStart="1dp"
         android:paddingTop="2dp"
-        android:text="Name"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="#FFEDCC"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@+id/imageURL" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerRestImage"
+        app:drawableStartCompat="@drawable/ic_rest" />
 
     <TextView
         android:id="@+id/detailsCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:drawableStart="@drawable/ic_place"
         android:paddingStart="1dp"
-        android:text="City"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="#FFEDCC"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.016"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailsName" />
+        app:layout_constraintTop_toBottomOf="@+id/detailsName"
+        app:drawableStartCompat="@drawable/ic_place" />
 
     <Button
         android:id="@+id/mapButton"
         style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="35dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/search_bg"
         android:backgroundTintMode="add"
         android:text="MAP"
-        android:background="@drawable/search_bg"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoFavorite" />
 
@@ -62,7 +58,7 @@
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/search_bg"
         android:text="CONTACT US"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -70,14 +66,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapButton" />
+        app:layout_constraintTop_toBottomOf="@+id/logoFavorite" />
 
     <ImageView
+
         android:id="@+id/imageURL"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="3dp"
         android:layout_marginTop="16dp"
         android:src="@mipmap/ic_launcher"
+        android:background="@drawable/image_frame"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,17 +87,17 @@
     <Button
         android:id="@+id/visitButton"
         style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="35dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/search_bg"
         android:text="VISIT US"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.951"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/callButton" />
+        app:layout_constraintTop_toBottomOf="@+id/logoFavorite" />
 
     <ImageView
         android:id="@+id/logoFavorite"
@@ -115,13 +116,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:drawableStart="@drawable/ic_address"
         android:paddingStart="1dp"
-        android:text="Address"
         android:textColor="#FFEDCC"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.017"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailsCity" />
+        app:layout_constraintTop_toBottomOf="@+id/detailsCity"
+        app:drawableStartCompat="@drawable/ic_address" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinnerRestImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageURL" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

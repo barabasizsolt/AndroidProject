@@ -70,7 +70,7 @@ class FavoriteAdapter (private var daoViewModel: DaoViewModel, mContext: Context
             val builder = AlertDialog.Builder(holder.itemView.context)
             builder.setMessage("Are you sure you want to Delete?")
                 .setCancelable(false)
-                .setPositiveButton("Yes") { dialog, id ->
+                .setPositiveButton("Yes") { _, _ ->
                     daoViewModel.deleteCrossDB(exampleList[position].id, Constants.user.userID)
 
                     exampleList.removeAt(position)
@@ -79,7 +79,7 @@ class FavoriteAdapter (private var daoViewModel: DaoViewModel, mContext: Context
 
                     Toast.makeText(holder.itemView.context, "Item deleted!", Toast.LENGTH_SHORT).show()
                 }
-                .setNegativeButton("No") { dialog, id ->
+                .setNegativeButton("No") { dialog, _ ->
                     dialog.dismiss()
                 }
             builder.create().show()

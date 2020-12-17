@@ -3,10 +3,7 @@ package com.example.wheretoeat.Database
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.*
-import com.example.wheretoeat.Model.Restaurant
-import com.example.wheretoeat.Model.User
-import com.example.wheretoeat.Model.UserRestaurantCross
-import com.example.wheretoeat.Model.UserWithRestaurant
+import com.example.wheretoeat.Model.*
 
 @Dao
 interface RestaurantDao {

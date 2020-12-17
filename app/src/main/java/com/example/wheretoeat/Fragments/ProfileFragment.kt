@@ -47,7 +47,6 @@ class ProfileFragment : Fragment() {
         val profileLogo = view.findViewById<ImageView>(R.id.userLogo)
 
         val modelList: List<Logo> = readFromAsset()
-        val elem = modelList[0]
         val customDropDownAdapter = context?.let { CustomDropDownAdapter(it, modelList) }
 
         val spinnerLogo = view.findViewById<Spinner>(R.id.spinnerLogo)
@@ -58,11 +57,7 @@ class ProfileFragment : Fragment() {
         spinnerLogo?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ){
                 context?.let { Glide.with(it).load(Constants.myImageList[spinnerLogo.selectedItemPosition]).
                 circleCrop().into(profileLogo)

@@ -17,17 +17,31 @@ abstract class RestaurantDatabase: RoomDatabase() {
     abstract fun RestaurantDao():RestaurantDao
 
     companion object{
-        val MIGRATION_1_2 = object : Migration(1, 2) {
+        private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("CREATE TABLE IF NOT EXISTS `user_table` (`userID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nickname` TEXT NOT NULL, `password` TEXT NOT NULL, " +
                         "`address` TEXT NOT NULL, `email` TEXT NOT NULL, `mobile` TEXT NOT NULL)" )
             }
         }
 
-        val MIGRATION_2_3: Migration = object: Migration(2,3)
+        private val MIGRATION_2_3: Migration = object: Migration(2,3)
         {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("CREATE TABLE IF NOT EXISTS `favorite_restaurants` (`favoriteID` INTEGER NOT NULL ,`id` INTEGER NOT NULL,`userID` INTEGER NOT NULL, PRIMARY KEY(`favoriteID`))")
+            }
+        }
+
+        private val MIGRATION_3_4: Migration = object: Migration(3,4)
+        {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("CREATE TABLE IF NOT EXISTS `rest_image` (`restImgID` INTEGER NOT NULL ,`id` INTEGER NOT NULL,`imageID` INTEGER NOT NULL, PRIMARY KEY(`restImgID`))")
+            }
+        }
+
+        private val MIGRATION_4_5: Migration = object: Migration(4,5)
+        {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("CREATE TABLE IF NOT EXISTS `rest_image` (`restImgID` INTEGER NOT NULL ,`id` INTEGER NOT NULL,`imageID` INTEGER NOT NULL, PRIMARY KEY(`restImgID`))")
             }
         }
 
@@ -44,7 +58,7 @@ abstract class RestaurantDatabase: RoomDatabase() {
                     context.applicationContext,
                     RestaurantDatabase::class.java,
                     "rest_database"
-                ).addMigrations(MIGRATION_1_2, MIGRATION_2_3).build()
+                ).addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_4_5).build()
                 INSTANCE = instance
                 return instance
             }

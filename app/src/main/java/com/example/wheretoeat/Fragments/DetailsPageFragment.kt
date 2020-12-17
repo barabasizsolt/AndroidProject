@@ -9,19 +9,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.wheretoeat.Adapter.CustomDropDownAdapter
+import com.example.wheretoeat.Model.Logo
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.Model.UserRestaurantCross
 import com.example.wheretoeat.R
 import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
+import com.google.gson.Gson
 import kotlinx.coroutines.runBlocking
 import java.util.*
 
@@ -44,18 +44,35 @@ class DetailsPageFragment : Fragment() {
         Log.d("rest: ", restaurant.toString())
 
         val name = view.findViewById<TextView>(R.id.detailsName)
-        name.text = "Name: " + restaurant.name
+        name.text = restaurant.name
         val city = view.findViewById<TextView>(R.id.detailsCity)
-        city.text = "City: " + restaurant.city
+        city.text = restaurant.city
         val address = view.findViewById<TextView>(R.id.detailsAddress)
-        address.text = "Address: " + restaurant.address
-
+        address.text = restaurant.address
 
         val image = view.findViewById<ImageView>(R.id.imageURL)
-        Glide.with(this).load(restaurant.image_url).into(image)
+        Glide.with(this).load(R.drawable.foodimage4).into(image)
+
+        val modelList: List<Logo> = readFromAsset()
+        val customDropDownAdapter = context?.let { CustomDropDownAdapter(it, modelList) }
+
+        val spinnerRestImg = view.findViewById<Spinner>(R.id.spinnerRestImage)
+        spinnerRestImg.isVisible = !isV!!
+        if (spinnerRestImg != null) {
+            spinnerRestImg.adapter = customDropDownAdapter
+        }
+
+        spinnerRestImg?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long
+            ){
+                context?.let { Glide.with(it).load(Constants.myImageRest[spinnerRestImg.selectedItemPosition]).into(image) }
+            }
+        }
 
         val hearth = view.findViewById<ImageView>(R.id.logoFavorite)
-        if (isV != null) hearth.isVisible = isV
+        hearth.isVisible = isV
         hearth.setOnClickListener{
             val builder = AlertDialog.Builder(view.context)
             builder.setMessage("Are you sure you want to add to Favorites?")
@@ -115,5 +132,13 @@ class DetailsPageFragment : Fragment() {
         }
 
         return view
+    }
+
+    private fun readFromAsset(): List<Logo> {
+        val fileName = "restaurant.json"
+        val bufferReader = activity?.assets?.open(fileName)?.bufferedReader()
+        val jsonString = bufferReader.use { it?.readText() }
+        val gson = Gson()
+        return gson.fromJson(jsonString, Array<Logo>::class.java).toList()
     }
 }
