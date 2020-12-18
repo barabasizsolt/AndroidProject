@@ -37,7 +37,7 @@ class FavoriteAdapter (private var daoViewModel: DaoViewModel, mContext: Context
 
         holder.restNameView.text = currentItem.name
         holder.restPhoneView.text = "Tel: " + currentItem.phone
-        holder.restPriceView.text = "Minimum price: " + currentItem.price.toString() +  "$"
+        holder.restPriceView.text = "Minimum price: " + "$".repeat(currentItem.price)
 
         when{
             currentItem.id % 2 == 0 -> {
