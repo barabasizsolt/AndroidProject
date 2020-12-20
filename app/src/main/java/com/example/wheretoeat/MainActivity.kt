@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //Spinner crash
+   /**Prevent spinners from crashing*/
     override fun onAttachFragment(fragment: Fragment) {
         if (fragment.isAdded) return
         super.onAttachFragment(fragment)

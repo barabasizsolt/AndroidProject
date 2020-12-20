@@ -2,10 +2,8 @@ package com.example.wheretoeat.Fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,14 +16,12 @@ import com.example.wheretoeat.Adapter.Adapter
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.R
 import com.example.wheretoeat.Repository.Repository
+import com.example.wheretoeat.Spinner.CustomSearchableSpinner
 import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
 import com.example.wheretoeat.ViewModel.MainRestaurantViewModelFactory
 import com.example.wheretoeat.ViewModel.RestaurantViewModel
 import kotlinx.android.synthetic.main.fragment_main.view.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
-import okhttp3.internal.wait
 import java.util.*
 
 /**Loading dates from the API.*/
@@ -37,7 +33,8 @@ class MainFragment : Fragment() {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_main, container, false)
 
         /**TextView for searching between the favorite items(search by price).*/
@@ -46,26 +43,22 @@ class MainFragment : Fragment() {
         /**Setting up the spinners*/
         /*----------------------------------------------------------------*/
         /**Spinner to choose between cities*/
-        val spinner = view.findViewById<Spinner>(R.id.spinner)
-        if (spinner != null) {
-            val adapter =
-                activity?.let {
-                    /**Constants.cities are loaded during the SplashScreen activity.*/
-                    ArrayAdapter(it, android.R.layout.simple_spinner_item, Constants.cities)
-                }
-            spinner.adapter = adapter
-        }
+        val spinner = view.findViewById<Spinner>(R.id.spinner) as CustomSearchableSpinner
+        val adapterSpinnerCity =
+            activity?.let {
+                /**Constants.cities are loaded during the SplashScreen activity.*/
+                ArrayAdapter(it, android.R.layout.simple_spinner_item, Constants.cities)
+            }
+        spinner.adapter = adapterSpinnerCity
 
         /**Spinner to choose between pages*/
         val pageNum = (1..50).toList()
-        val spinnerPage = view.findViewById<Spinner>(R.id.spinnerPage)
-        if (spinnerPage != null) {
-            val adapter =
-                activity?.let {
-                    ArrayAdapter(it, android.R.layout.simple_spinner_item, pageNum)
-                }
-            spinnerPage.adapter = adapter
-        }
+        val spinnerPage = view.findViewById<Spinner>(R.id.spinnerPage) as CustomSearchableSpinner
+        val adapterSpinnerPage =
+            activity?.let {
+                ArrayAdapter(it, android.R.layout.simple_spinner_item, pageNum)
+            }
+        spinnerPage.adapter = adapterSpinnerPage
         /*----------------------------------------------------------------*/
 
         /**Setting up the adapter and the viewModel for the recyclerView/database */
@@ -87,21 +80,34 @@ class MainFragment : Fragment() {
         /*-----------------------------------------------------------------------------------------------*/
 
         /**Filtering the restaurants(pagination) by cities and pages*/
-        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long){
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ){
                 /**Filter by city(is the page is not selected).*/
-                viewModel.getAllRestaurant(spinner.selectedItem.toString(), spinnerPage.selectedItem as Int)
+                viewModel.getAllRestaurant(
+                    spinner.selectedItem.toString(),
+                    spinnerPage.selectedItem as Int
+                )
                 search.text = ""
 
                 /**Filter by city and page.*/
-                spinnerPage?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                spinnerPage.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onNothingSelected(parent: AdapterView<*>?) {
 
                     }
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long){
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ){
                         viewModel.getAllRestaurant(
                             spinner.selectedItem.toString(),
                             spinnerPage.selectedItem as Int
@@ -138,7 +144,11 @@ class MainFragment : Fragment() {
                 if (s.toString().isNotEmpty()) {
                     /**Lambda function -> filter the restaurants where the price is equal to the input price.*/
                     adapter?.setData(mainList.filter {
-                        it.price.toString().toLowerCase(Locale.ROOT).contains(s.toString().toLowerCase(Locale.ROOT))
+                        it.price.toString().toLowerCase(Locale.ROOT).contains(
+                            s.toString().toLowerCase(
+                                Locale.ROOT
+                            )
+                        )
                     } as MutableList<Restaurant>)
 
                 } else {
@@ -148,5 +158,17 @@ class MainFragment : Fragment() {
         })
 
         return view
+    }
+
+    private fun dismissSpinner() {
+        val searchableSpinnerDialog = requireFragmentManager().findFragmentByTag("TAG")
+        if (searchableSpinnerDialog != null && searchableSpinnerDialog.isAdded) {
+            requireFragmentManager().beginTransaction().remove(searchableSpinnerDialog).commit()
+        }
+    }
+
+    override fun onPause() {
+        dismissSpinner()
+        super.onPause()
     }
 }
