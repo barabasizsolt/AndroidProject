@@ -160,6 +160,7 @@ class MainFragment : Fragment() {
         return view
     }
 
+    /**Helper function for Spinners(Prevent from crashing).*/
     private fun dismissSpinner() {
         val searchableSpinnerDialog = requireFragmentManager().findFragmentByTag("TAG")
         if (searchableSpinnerDialog != null && searchableSpinnerDialog.isAdded) {

@@ -23,8 +23,10 @@ class MainActivity : AppCompatActivity() {
         }
         setContentView(R.layout.activity_main)
 
+        /**bottomNavigation is invisible in Login/Register fragments.*/
         bottomNav.isVisible = false
 
+        /**Setting up the navigation logic.*/
         bottomNav.setOnNavigationItemSelectedListener {
             var selectedFragment: Fragment = LoginFragment()
             when (it.itemId) {

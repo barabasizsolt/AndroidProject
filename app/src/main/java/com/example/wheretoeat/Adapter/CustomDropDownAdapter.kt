@@ -35,8 +35,8 @@ class CustomDropDownAdapter(val context: Context, var dataSource: List<Logo>) : 
             "drawable",
             context.packageName
         )
-        //vh.img.setBackgroundResource(id)
-        Glide.with(context).load(id).circleCrop().override(200, 120).into(vh.img)
+
+        Glide.with(context).load(id).circleCrop().override(1200, 200).into(vh.img)
 
         return view
     }

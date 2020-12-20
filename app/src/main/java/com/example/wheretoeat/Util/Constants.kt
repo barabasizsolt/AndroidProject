@@ -15,7 +15,7 @@ class Constants {
         /**The avatars's drawable id.*/
         val myImageList = intArrayOf(R.drawable.avatar11, R.drawable.avatar22, R.drawable.avatar33, R.drawable.avatar44)
         /**The cover photos's drawable id.*/
-        val myImageRest = mutableListOf(R.drawable.out, R.drawable.inside, R.drawable.menu)
+        val myImageRest = mutableListOf(R.drawable.out, R.drawable.inside2, R.drawable.menu)
         /**The current user.*/
         lateinit var user: User
     }
