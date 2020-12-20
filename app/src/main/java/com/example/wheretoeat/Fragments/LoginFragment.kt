@@ -17,7 +17,7 @@ import com.example.wheretoeat.Util.Constants
 import com.example.wheretoeat.ViewModel.DaoViewModel
 import kotlinx.coroutines.runBlocking
 
-
+/**Logging into the application.*/
 class LoginFragment : Fragment() {
     private lateinit var daoViewModel: DaoViewModel
 
@@ -25,7 +25,6 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_login, container, false)
 
         daoViewModel = ViewModelProvider(this).get(DaoViewModel::class.java)
@@ -34,6 +33,7 @@ class LoginFragment : Fragment() {
         val pass = view.findViewById<TextView>(R.id.editTextTextPassword)
         pass.transformationMethod = PasswordTransformationMethod()
 
+        /**The code below search for the given user in database.*/
         runBlocking {
             daoViewModel.readAllCross.observe(viewLifecycleOwner, {cross->
                 runBlocking {
@@ -43,23 +43,25 @@ class LoginFragment : Fragment() {
 
                                 val login = view.findViewById<Button>(R.id.loginButton)
                                 login.setOnClickListener {
+                                    /**If the login fields where filled in, then check if the given user is a valid user or not.*/
                                     if (name.text.toString().isNotEmpty() && pass.text.toString().isNotEmpty()) {
-                                        val bundle = Bundle()
 
                                         runBlocking {
+                                            /**If doesn't exist in the database, the login fail, else
+                                             * the given user will become the current user(Constants.user).*/
                                             daoViewModel.getUserDB(name.text.toString()).observe(viewLifecycleOwner, {usr->
                                                 if (usr == null || usr.password != pass.text.toString()) {
                                                     Toast.makeText(context, "Wrong nickname or password!", Toast.LENGTH_SHORT).show()
                                                 } else {
-                                                    Log.d("LOGIN", usr.nickname)
                                                     Constants.user = usr
 
+                                                    /**The current user's favorite restaurants will be stored into a list(Constants.userList)
+                                                     * which will be passed as parameter to the favoriteFragment's recycleView's adapter.*/
                                                     for(v in cross){
                                                         if(v.userID == usr.userID){
                                                             for(w in rest){
                                                                 if(v.id == w.id){
-                                                                    Constants.userLs.add(w)
-                                                                    Log.d("userRest: ", w.toString())
+                                                                    Constants.userList.add(w)
                                                                 }
                                                             }
                                                         }
@@ -67,12 +69,10 @@ class LoginFragment : Fragment() {
 
                                                     Toast.makeText(context, "Welcome ${name.text}!", Toast.LENGTH_SHORT).show()
 
-                                                    val profilePageFragment = ProfileFragment()
-                                                    profilePageFragment.arguments = bundle
-
+                                                    /**Moving to the profileFragment.*/
                                                     val transaction =
                                                         (context as FragmentActivity).supportFragmentManager.beginTransaction()
-                                                    transaction.replace(R.id.nav_host_fragment, profilePageFragment)
+                                                    transaction.replace(R.id.nav_host_fragment, ProfileFragment())
                                                     transaction.commit()
                                                 }
                                             })
@@ -92,8 +92,11 @@ class LoginFragment : Fragment() {
 //        runBlocking {  daoViewModel.deleteAllUserDB()}
 //        runBlocking {  daoViewModel.deleteAllCrossDB()}
 
+        /**If the user choose the registration option, then moving to the
+         * registerFragment.*/
         val register = view.findViewById<Button>(R.id.registerButton)
         register.setOnClickListener {
+            /**Transferring the given username and password.*/
             val bundle = Bundle()
             bundle.putString("nicknameReg", name.text.toString())
             bundle.putString("passwordReg", pass.text.toString())

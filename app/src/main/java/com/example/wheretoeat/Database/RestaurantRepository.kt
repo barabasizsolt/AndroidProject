@@ -4,68 +4,57 @@ import androidx.lifecycle.LiveData
 import com.example.wheretoeat.Model.*
 
 class RestaurantRepository(private val restaurantDao: RestaurantDao) {
-    val readAllData: LiveData<List<Restaurant>> = restaurantDao.readAllData()
-    val readALLUser: LiveData<List<User>> = restaurantDao.readAllUser()
-    val readAllCross :LiveData<List<UserRestaurantCross>> = restaurantDao.getUserCrossALL()
+    val readAllRestaurant: LiveData<List<Restaurant>> = restaurantDao.readAllRestaurantDao()
+    val readALLUser: LiveData<List<User>> = restaurantDao.readAllUserDao()
+    val readAllCross :LiveData<List<UserRestaurantCross>> = restaurantDao.getAllUserRestaurantCrossDao()
 
+    /**
+     * Functions( ADD/GET/UPDATE) to manipulate restaurants in the database.
+     * */
+    /*-------------------------------------------------------------------------*/
     suspend fun addRestaurant(restaurant: Restaurant){
         restaurantDao.addRestaurantDao(restaurant)
     }
-
-    suspend fun deleteRestaurant(restaurant: Restaurant){
-        restaurantDao.deleteRestaurant(restaurant)
-    }
-
     suspend fun deleteAll(){
-        restaurantDao.deleteAll()
+        restaurantDao.deleteAllRestaurantDao()
     }
+    /*-------------------------------------------------------------------------*/
 
-    //--------------------------------------------------------//
 
+    /**
+     * Functions( ADD/GET/UPDATE) to manipulate users in the database.
+     * */
+    /*-------------------------------------------------------------------------*/
     suspend fun addUser(user: User){
         restaurantDao.addUserDao(user)
     }
-
-    suspend fun deleteUser(user: User){
-        restaurantDao.deleteUser(user)
-    }
-
     suspend fun deleteAllUser(){
-        restaurantDao.deleteAllUser()
+        restaurantDao.deleteAllUserDao()
     }
-
-
     fun getUser(nickname:String):LiveData<User>{
-        return restaurantDao.getUser(nickname)
+        return restaurantDao.getUserDao(nickname)
     }
-
     fun getUserEmail(email:String):LiveData<User>{
-        return restaurantDao.getUserEmail(email)
+        return restaurantDao.getUserEmailDao(email)
     }
-
     fun updatePassword(password:String, userID: Int){
-        restaurantDao.updatePassword(password, userID)
+        restaurantDao.updatePasswordDao(password, userID)
     }
+    /*-------------------------------------------------------------------------*/
 
-    //--------------------------------------------------------//
 
+    /**
+     * Functions( ADD/GET/UPDATE) to manipulate many-to-many relationship in the database.
+     * */
+    /*-------------------------------------------------------------------------*/
     suspend fun addUserRestaurant(userRestaurantCross: UserRestaurantCross){
-        restaurantDao.addUserRestaurant(userRestaurantCross)
+        restaurantDao.addUserRestaurantCrossDao(userRestaurantCross)
     }
-
-    fun getUserWithRestaurant(userID: Int): LiveData<List<UserWithRestaurant>> {
-        return restaurantDao.getUserWithRestaurantDao(userID)
-    }
-
     suspend fun deleteAllCross(){
-        restaurantDao.deleteAllCross()
+        restaurantDao.deleteAllUserRestaurantCrossDao()
     }
-
-    fun getUserCross(id: Int, userID: Int): LiveData<UserRestaurantCross> {
-        return restaurantDao.getUserCross(id, userID)
+    suspend fun deleteCross(id: Long, userID:Int){
+        restaurantDao.deleteCrossDao(id, userID)
     }
-
-    suspend fun deleteCross(id:Int, userID:Int){
-        restaurantDao.deleteCross(id, userID)
-    }
+    /*-------------------------------------------------------------------------*/
 }

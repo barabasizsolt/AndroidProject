@@ -16,6 +16,7 @@ import com.example.wheretoeat.ViewModel.RestaurantViewModel
 import com.example.wheretoeat.Util.Constants.Companion.cities
 import kotlinx.coroutines.runBlocking
 
+/**SplashActivity, getting the cities from the API*/
 @Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {
     private lateinit var viewModel: RestaurantViewModel
@@ -24,6 +25,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        /**Storing the cities into the 'Constants.cities' list.*/
         val repository = Repository()
         val viewModelFactory = MainRestaurantViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(RestaurantViewModel::class.java)
@@ -34,15 +36,17 @@ class SplashActivity : AppCompatActivity() {
             }
         })
 
+        /**Make the application run in full screen mode.*/
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
+        /**After 3,5 sec starting the mainActivity*/
         Handler().postDelayed({
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 3000)
+        }, 3500)
     }
 }

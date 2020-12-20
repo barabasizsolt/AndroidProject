@@ -3,14 +3,12 @@ package com.example.wheretoeat.ViewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.wheretoeat.Database.RestaurantDatabase
 import com.example.wheretoeat.Database.RestaurantRepository
 import com.example.wheretoeat.Model.Restaurant
 import com.example.wheretoeat.Model.User
 import com.example.wheretoeat.Model.UserRestaurantCross
-import com.example.wheretoeat.Model.UserWithRestaurant
 import kotlinx.coroutines.*
 
 class DaoViewModel(application: Application) : AndroidViewModel(application) {
@@ -20,95 +18,74 @@ class DaoViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: RestaurantRepository
 
     init {
-        val restaurantDao = RestaurantDatabase.getDatabase(application).RestaurantDao()
-
+        val restaurantDao = RestaurantDatabase.getDatabase(application).restaurantDao()
         repository = RestaurantRepository(restaurantDao)
-        readAllData = repository.readAllData
+        readAllData = repository.readAllRestaurant
         readAllUser = repository.readALLUser
         readAllCross = repository.readAllCross
     }
 
+    /**
+     * Functions to manipulate restaurants in the database.
+     * */
     fun addRestaurantDB(restaurant: Restaurant) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addRestaurant(restaurant)
         }
     }
-
-    fun deleteRestaurantDB(restaurant: Restaurant) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteRestaurant(restaurant)
-        }
-    }
-
     fun deleteAll() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteAll()
         }
     }
+    /*-----------------------------------------------------------------------------*/
 
-    //------------------------------------------------------------//
 
+    /**
+     * Functions to manipulate users in the database.
+     * */
     fun addUserDB(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addUser(user)
         }
     }
-
-    fun deleteUserDB(user: User) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteUser(user)
-        }
-    }
-
     fun deleteAllUserDB(){
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteAllUser()
         }
     }
-
     suspend fun getUserDB(nickname: String): LiveData<User> =
         withContext(viewModelScope.coroutineContext) {
             repository.getUser(nickname)
         }
-
     suspend fun getUserEmailDB(email: String): LiveData<User> =
         withContext(viewModelScope.coroutineContext) {
             repository.getUserEmail(email)
         }
-
     fun updatePasswordDB(password:String, userID: Int){
         viewModelScope.launch(Dispatchers.IO) {
             repository.updatePassword(password, userID)
         }
     }
+    /*-----------------------------------------------------------------------------*/
 
-    //-----------------------------------------------------------//
-
+    /**
+     * Functions to manipulate many-to-many relations in the database.
+     * */
     fun addUserRestaurantDB(userRestaurantCross: UserRestaurantCross) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addUserRestaurant(userRestaurantCross)
         }
     }
-
-    suspend fun getUserWithRestaurant(userID: Int) : LiveData<List<UserWithRestaurant>> =
-        withContext(GlobalScope.coroutineContext) {
-            repository.getUserWithRestaurant(userID)
-        }
-
     fun deleteAllCrossDB(){
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteAllCross()
         }
     }
-
-    suspend fun getUserCrossDB(id: Int, userID: Int):LiveData<UserRestaurantCross> =
-        withContext(viewModelScope.coroutineContext) {
-            repository.getUserCross(id, userID)
-        }
-
-    fun deleteCrossDB(id:Int, userID:Int){
+    fun deleteCrossDB(id: Long, userID:Int){
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteCross(id, userID)
         }
     }
+    /*-------------------------------------------------------------------------*/
 }

@@ -37,6 +37,34 @@
         app:layout_constraintTop_toBottomOf="@+id/detailsName"
         app:drawableStartCompat="@drawable/ic_place" />
 
+    <TextView
+        android:id="@+id/detailsCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:paddingStart="1dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="#FFEDCC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.016"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailsCity"
+        app:drawableStartCompat="@drawable/ic_place" />
+
+    <TextView
+        android:id="@+id/detailsPostal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:paddingStart="1dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="#FFEDCC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.016"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailsCountry"
+        app:drawableStartCompat="@drawable/ic_place" />
+
     <Button
         android:id="@+id/mapButton"
         style="@style/Widget.AppCompat.Button.Small"
@@ -121,7 +149,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.017"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailsCity"
+        app:layout_constraintTop_toBottomOf="@+id/detailsPostal"
         app:drawableStartCompat="@drawable/ic_address" />
 
     <androidx.appcompat.widget.AppCompatSpinner

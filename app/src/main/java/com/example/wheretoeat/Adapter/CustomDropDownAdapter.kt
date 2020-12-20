@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.example.wheretoeat.Model.Logo
 import com.example.wheretoeat.R
 
+/**Custom adapter for my custom spinner.*/
 class CustomDropDownAdapter(val context: Context, var dataSource: List<Logo>) : BaseAdapter() {
 
-    private val inflater: LayoutInflater =
-        context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
@@ -34,7 +35,8 @@ class CustomDropDownAdapter(val context: Context, var dataSource: List<Logo>) : 
             "drawable",
             context.packageName
         )
-        vh.img.setBackgroundResource(id)
+        //vh.img.setBackgroundResource(id)
+        Glide.with(context).load(id).circleCrop().override(200, 120).into(vh.img)
 
         return view
     }

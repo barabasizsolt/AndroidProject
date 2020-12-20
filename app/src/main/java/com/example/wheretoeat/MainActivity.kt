@@ -39,4 +39,10 @@ class MainActivity : AppCompatActivity() {
             return@setOnNavigationItemSelectedListener true
         }
     }
+
+    //Spinner crash
+    override fun onAttachFragment(fragment: Fragment) {
+        if (fragment.isAdded) return
+        super.onAttachFragment(fragment)
+    }
 }

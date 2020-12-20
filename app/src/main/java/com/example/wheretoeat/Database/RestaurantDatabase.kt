@@ -14,9 +14,10 @@ import com.example.wheretoeat.Model.UserRestaurantCross
 @Database(entities = [Restaurant::class, User::class, UserRestaurantCross::class], version = 3, exportSchema = true)
 abstract class RestaurantDatabase: RoomDatabase() {
 
-    abstract fun RestaurantDao():RestaurantDao
+    abstract fun restaurantDao():RestaurantDao
 
     companion object{
+        /**Migration for creating the User table*/
         private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("CREATE TABLE IF NOT EXISTS `user_table` (`userID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nickname` TEXT NOT NULL, `password` TEXT NOT NULL, " +
@@ -24,6 +25,7 @@ abstract class RestaurantDatabase: RoomDatabase() {
             }
         }
 
+        /**Migration for creating the Junction table*/
         private val MIGRATION_2_3: Migration = object: Migration(2,3)
         {
             override fun migrate(database: SupportSQLiteDatabase) {
@@ -32,6 +34,7 @@ abstract class RestaurantDatabase: RoomDatabase() {
         }
 
         @Volatile
+        /**Database instance.*/
         private var INSTANCE: RestaurantDatabase?=null
 
         fun getDatabase(context: Context):RestaurantDatabase{

@@ -5,60 +5,66 @@ import androidx.room.*
 import com.example.wheretoeat.Model.*
 
 @Dao
+/**Data Access Object*/
 interface RestaurantDao {
+    /**
+     * Functions( ADD/GET/UPDATE) to manipulate restaurants in the database.
+     * */
+    /*-------------------------------------------------------------------------*/
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addRestaurantDao(restaurant:Restaurant)
 
-    @Delete
-    suspend fun deleteRestaurant(restaurant:Restaurant)
-
     @Query("DELETE FROM rest_table")
-    suspend fun deleteAll()
+    suspend fun deleteAllRestaurantDao()
 
     @Query("SELECT *FROM rest_table ORDER BY name ASC")
-    fun readAllData(): LiveData<List<Restaurant>>
+    fun readAllRestaurantDao(): LiveData<List<Restaurant>>
+    /*-------------------------------------------------------------------------*/
 
-    //----------------------------------------------------//
-
+    /**
+     * Functions( ADD/GET/UPDATE) to manipulate users in the database.
+     * */
+    /*-------------------------------------------------------------------------*/
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addUserDao(user: User)
 
-    @Delete
-    suspend fun deleteUser(user: User)
-
     @Query("DELETE FROM user_table")
-    suspend fun deleteAllUser()
+    suspend fun deleteAllUserDao()
 
     @Query("SELECT * FROM user_table WHERE nickname =:nickname")
-    fun getUser(nickname: String):LiveData<User>
+    fun getUserDao(nickname: String):LiveData<User>
 
     @Query("SELECT * FROM user_table WHERE email =:email")
-    fun getUserEmail(email: String):LiveData<User>
+    fun getUserEmailDao(email: String):LiveData<User>
 
     @Query("SELECT * FROM user_table ORDER BY nickname ASC")
-    fun readAllUser():LiveData<List<User>>
+    fun readAllUserDao():LiveData<List<User>>
 
     @Query("UPDATE user_table SET password = :password where userID = :userID")
-    fun updatePassword(password:String, userID: Int)
+    fun updatePasswordDao(password:String, userID: Int)
+    /*-------------------------------------------------------------------------*/
 
-    //-----------------------------------------------------//
-
+    /**
+     * Functions( ADD/DELETE/GET/UPDATE) to manipulate many-to-many relationship in the database.
+     * */
+    /*-------------------------------------------------------------------------*/
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addUserRestaurant(userRestaurantCross: UserRestaurantCross)
-
-    @Transaction
-    @Query("SELECT * FROM user_table WHERE userID =:userID")
-    fun getUserWithRestaurantDao(userID: Int):LiveData<List<UserWithRestaurant>>
+    /**
+     * Many-to-Many relationship.
+     * --if the current user like the current restaurant--
+     * */
+    suspend fun addUserRestaurantCrossDao(userRestaurantCross: UserRestaurantCross)
 
     @Query("DELETE FROM favorite_restaurants")
-    suspend fun deleteAllCross()
-
-    @Query("SELECT * FROM favorite_restaurants WHERE id = :id and userID =:userID")
-    fun getUserCross(id:Int, userID: Int):LiveData<UserRestaurantCross>
+    suspend fun deleteAllUserRestaurantCrossDao()
 
     @Query("SELECT * FROM favorite_restaurants")
-    fun getUserCrossALL():LiveData<List<UserRestaurantCross>>
+    fun getAllUserRestaurantCrossDao():LiveData<List<UserRestaurantCross>>
 
+    /**
+     * Deleting a restaurant from the current user list.
+     * */
     @Query("DELETE FROM favorite_restaurants where id = :id and userID = :userID")
-    suspend fun deleteCross(id:Int, userID:Int)
+    suspend fun deleteCrossDao(id: kotlin.Long, userID:Int)
+    /*-------------------------------------------------------------------------*/
 }
