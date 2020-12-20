@@ -1,11 +1,12 @@
 # Where To Eat?
 
 ## Overview
+[![License: ODbL](https://img.shields.io/badge/License-PDDL-brightgreen.svg)](https://opendatacommons.org/licenses/pddl/)
+
 This app was create to manage different restaurants from different countries.
 It pulls data from the https://ratpark-api.imok.space API.
 The application was written in [Android](https://en.wikipedia.org/wiki/Android_(operating_system)).
 This is the official project for my **_Mobileszközök programozása_** exam.
-
 
 ## Features
 * The data is sorted into a local database, well known as the [ROOM](https://developer.android.com/topic/libraries/architecture/room?gclid=Cj0KCQiAifz-BRDjARIsAEElyGI7AnU7rdH2X7KIxSN3Fw4V5t3F4oCTZyH7L8uOzfPqjskj_cwZVwsaAkfjEALw_wcB&gclsrc=aw.ds)
