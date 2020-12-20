@@ -3,18 +3,17 @@
 ## Overview
 [![License: ODbL](https://img.shields.io/badge/License-PDDL-brightgreen.svg)](https://opendatacommons.org/licenses/pddl/)
 
-This app was create to manage different restaurants from different countries.
-It pulls data from the https://ratpark-api.imok.space API.
-The application was written in [Android](https://en.wikipedia.org/wiki/Android_(operating_system)).
+This app was create to manage the orders of different restaurants around the world.
+It pulls data from the https://ratpark-api.imok.space API and was written in [Android](https://en.wikipedia.org/wiki/Android_(operating_system)).
 This is the official project for my **_Mobileszközök programozása_** exam.
 
 ## Features
-* The data is sorted into a local database, well known as the [ROOM](https://developer.android.com/topic/libraries/architecture/room?gclid=Cj0KCQiAifz-BRDjARIsAEElyGI7AnU7rdH2X7KIxSN3Fw4V5t3F4oCTZyH7L8uOzfPqjskj_cwZVwsaAkfjEALw_wcB&gclsrc=aw.ds)
+* The data is sorted in a local database, well known as the [ROOM](https://developer.android.com/topic/libraries/architecture/room?gclid=Cj0KCQiAifz-BRDjARIsAEElyGI7AnU7rdH2X7KIxSN3Fw4V5t3F4oCTZyH7L8uOzfPqjskj_cwZVwsaAkfjEALw_wcB&gclsrc=aw.ds)
 database.
 * The app has his own Login/Register system. The users will be stored into the local databse.
 * Every user has his own favorite restaurant list.
 * The **_User_** can manage his favorites(ADD/DELETE).
-* The **_Restaurant_** can be called up, the user can visit the original reestaurant site or just simply search it on the [Google Map](https://www.google.ro/maps).
+* The **_Restaurant_** can be called up, the user can visit the original restaurant site or just simply search it on the [Google Map](https://www.google.ro/maps).
 
 ## Main Android Components
 * [Activity](https://developer.android.com/reference/android/app/Activity)
